@@ -57,7 +57,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1="\n\[\e[1;31m\]\u@\h\[\e[1;34m\](\$(/usr/bin/tty | /bin/sed -e 's:/dev/::')):\n\[\e[32m\][\w] \[\e[1;35m\]\n\[\e[1;35m\]|--->\[\e[0m\] " 
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -92,6 +92,9 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+alias wow='git status'
+alias gitadog='git log --all --decorate --oneline --graph'
+
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -115,9 +118,3 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-if [ -f ~/.bash_personal ]; then
-    . ~/.bash_personal
-fi
-
-export EDITOR='vim'
