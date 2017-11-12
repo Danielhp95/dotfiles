@@ -1,3 +1,5 @@
+set t_Co=256 " terminal with 256 colours
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -42,6 +44,10 @@ set wildmenu " Shows file manu for commands like :e <Tab>
 
 set incsearch " When searching, go directly to matches
 set hlsearch  " Highlight matches
+nnoremap <leader>h :nohlsearch<cr>
+set ignorecase
+set smartcase
+highlight Search ctermbg=55 cterm=bold
 
 set autoindent " Well... it autoindents
 
@@ -55,6 +61,11 @@ set nowrap
 set backspace=eol,start,indent " Go to next or previous line with movement commands
 
 set clipboard=unnamedplus
+
+
+
+" 
+
 
 " Tab movement
 nnoremap H :tabprevious<cr> 
@@ -91,7 +102,21 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 let g:autoswap_detect_tmux = 1
 
 
-" PLUGIN SETTINGS " 
+
+"------------          ------------- " 
+"------------ Highlights ----------- " 
+"------------          ------------- "
+
+" Bold text selected in visual mode
+highlight Visual cterm=bold
+" Light grey background colour
+highlight Visual ctermbg=8
+
+
+
+"------------          ------------- " 
+"------------PLUGIN SETTINGS ------- " 
+"------------          ------------- " 
 
 " Settings for fugitive git plugin
 " Most copied from
@@ -116,6 +141,11 @@ nnoremap <leader>gpl :Dispatch! git pull<CR>
 noremap <leader>o do:diffupdate<CR>
 noremap <leader>p dp:diffupdate<CR>
 
+highlight DIffChange cterm=bold ctermbg=89
+highlight DIffAdd    cterm=bold ctermbg=28
+highlight DIffDelete cterm=bold ctermbg=9 
+highlight DiffText   cterm=bold ctermbg=93
+
 
 " Ignore certain files with CtrlP
 " CHANGE FOR WHAT YOU ARE WORKING ON
@@ -132,10 +162,28 @@ nnoremap <leader>t :NERDTreeToggle<cr>
 
 "------------ Syntastic ------------- " 
 " Go to next/previous error
-nnoremap <leader>e :lnext<cr> 
-nnoremap <leader>E :prev<cr>
+nnoremap <leader>e :call LocationNext()<cr> 
+nnoremap <leader>E :call LocationPrevious()<cr>
 
-nnoremap <leader>te :ToggleErrors<cr>
+" Wrap both ways when searching for next and previous errors
+function LocationNext()
+    try
+        lnext
+    catch /^Vim\%((\a\+)\)\=:E553/
+        lfirst
+    endtry
+endfunction
+
+function LocationPrevious()
+    try
+        lprev
+    catch /^Vim\%((\a\+)\)\=:E553/
+        llast
+    endtry
+endfunction
+
+" Toggle error location list
+nnoremap <leader>te :call ToggleErrors()<cr>
 
 function! ToggleErrors()
     let old_last_winnr = winnr('$')
@@ -145,3 +193,6 @@ function! ToggleErrors()
         Errors
     endif
 endfunction
+
+let g:syntastic_always_populate_loc_list = 1 " Open error list if there are any
+let g:syntastic_check_on_open = 1 " Check syntax on open
