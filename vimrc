@@ -1,5 +1,5 @@
-set t_Co=256 " terminal with 256 colours
-
+" --------- WELCOME TO MY .VIMRC ! --------- "
+" Vundle Plugins {{{
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -31,19 +31,42 @@ filetype plugin indent on    " required
 " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
 " :PluginSearch foo - searches for foo; append `!` to refresh local cache
 " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this lin
-
+" }}}
+" Miscelaneous {{{
 let mapleader = " "
+set clipboard=unnamedplus
+
+set t_Co=256 " terminal with 256 colours
+
+nnoremap <leader>ev :tabe ~/.vimrc<cr>
+nnoremap <leader>sv :source ~/.vimrc<cr>
+
+" Multi-and single-line comments in Python
+nnoremap # I# <Esc>
+vnoremap # :s/^/# <CR>:noh<CR>
+
+
+" Use Ctrl+s to save file quickly TODO
+" nnoremap <C-S> :w<CR>
+" vnoremap <C-S> <Esc>:w<CR>
+" inoremap <C-S> <Esc>:w<CR>
+
+" }}}
+" UI layout {{{
 
 syntax enable
-set number 
-set showcmd
+set number  " Shows line numbers
+set showcmd " Shows commands as they are being typed
 set showmatch " Highlight matching parenthesis
-
 set wildmenu " Shows file manu for commands like :e <Tab>
+set autoindent " Well... it autoindents
 
+set ruler " Display position of cursor
+
+set foldmethod=marker " check :help foldmethod
+set foldlevel=0 " Folds closed by default
+" }}}
+" Search {{{
 set incsearch " When searching, go directly to matches
 set hlsearch  " Highlight matches
 nnoremap <leader>h :nohlsearch<cr>
@@ -51,33 +74,21 @@ set ignorecase
 set smartcase
 highlight Search ctermbg=55 cterm=bold
 
-set autoindent " Well... it autoindents
-
-set ruler " Display position of cursor
-
+" }}}
+" Space & Tabs {{{
 set expandtab " Expand tabs fr spaces
 set tabstop=4
 set shiftwidth=4
 set nowrap
-
-set backspace=eol,start,indent " Go to next or previous line with movement commands
-
-set clipboard=unnamedplus
-
-
-nnoremap <leader>ev :tabe ~/.vimrc<cr>
-nnoremap <leader>sv :source ~/.vimrc<cr>
-
-" 
-
-
+" }}}
+" Movement {{{
 " Tab movement
 nnoremap H :tabprevious<cr> 
 nnoremap L :tabnext<cr>
 
 " Scroll keeping the cursor in the same position in the screen
-nnoremap K <C-y>k
-nnoremap J <C-e>j
+nnoremap <C-k> <C-y>k
+nnoremap <C-j> <C-e>j
 
 " Useful insert mode commmands
 "   Go back a word
@@ -85,44 +96,26 @@ inoremap <C-H> <Esc>bi
 "   Go up a word
 inoremap <C-L> <Esc>wwi
 
-" Multi-and single-line comments in Python
-nnoremap # I# <Esc>
-vnoremap # :s/^/# <CR>:noh<CR>
-
 " Shortcuts to move lines up and down
-nnoremap <A-j> :m .+1<CR>==
-nnoremap <A-k> :m .-2<CR>==
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
-
-" Use Ctrl+s to save file quickly TODO
-" nnoremap <C-S> :w<CR>
-" vnoremap <C-S> <Esc>:w<CR>
-" inoremap <C-S> <Esc>:w<CR>
-
-" Autoswap command
-let g:autoswap_detect_tmux = 1
-
-
-
-"------------          ------------- " 
-"------------ Highlights ----------- " 
-"------------          ------------- "
-
+nnoremap <A-j> :move +1<CR>==
+nnoremap <A-k> :move -2<CR>==
+inoremap <A-j> <Esc>:move +1<CR>==gi
+inoremap <A-k> <Esc>:move -2<CR>==gi
+vnoremap <A-j> :move '>+1<CR>gv=gv
+vnoremap <A-k> :move '<-2<CR>gv=gv
+" }}}
+" Default Highlights {{{
 " Bold text selected in visual mode
 highlight Visual cterm=bold
 " Light grey background colour
 highlight Visual ctermbg=8
+" }}}
+" PLUGIN: Autoswap {{{
+let g:autoswap_detect_tmux = 1
+" }}}
+" PLUGIN: vim-fugitive {{{
 
 
-
-"------------          ------------- " 
-"------------PLUGIN SETTINGS ------- " 
-"------------          ------------- " 
-
-" Settings for fugitive git plugin
 " Most copied from
 " https://www.reddit.com/r/vim/comments/21f4gm/best_workflow_when_using_fugitive/
 set diffopt+=vertical
@@ -150,6 +143,8 @@ highlight DIffAdd    cterm=bold ctermbg=28
 highlight DIffDelete cterm=bold ctermbg=9 
 highlight DiffText   cterm=bold ctermbg=93
 
+" }}}
+" PLUGIN: CtrlP {{{
 
 " Ignore certain files with CtrlP
 " CHANGE FOR WHAT YOU ARE WORKING ON
@@ -158,13 +153,16 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.(exe|so|o|class)$',
   \ }
 
-"------------ NERDTree ------------- " 
+" }}}
+" PLUGIN: NERDTree {{{
 " If NERDTree is the only buffer left open, close it
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 " Opens/Closes NERDTree in a tab
 nnoremap <leader>t :NERDTreeToggle<cr>
 
-"------------ Syntastic ------------- " 
+" }}}
+" PLUGIN: Syntastic {{{
+
 " Go to next/previous error
 nnoremap <leader>e :call LocationNext()<cr> 
 nnoremap <leader>E :call LocationPrevious()<cr>
@@ -200,3 +198,5 @@ endfunction
 
 let g:syntastic_always_populate_loc_list = 1 " Open error list if there are any
 let g:syntastic_check_on_open = 1 " Check syntax on open
+
+" }}}
