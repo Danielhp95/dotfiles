@@ -37,8 +37,10 @@ filetype plugin indent on    " required
 
 let mapleader = " "
 
-syntax on
-set number
+syntax enable
+set number 
+set showcmd
+set showmatch " Highlight matching parenthesis
 
 set wildmenu " Shows file manu for commands like :e <Tab>
 
@@ -63,6 +65,8 @@ set backspace=eol,start,indent " Go to next or previous line with movement comma
 set clipboard=unnamedplus
 
 
+nnoremap <leader>ev :tabe ~/.vimrc<cr>
+nnoremap <leader>sv :source ~/.vimrc<cr>
 
 " 
 
@@ -166,7 +170,7 @@ nnoremap <leader>e :call LocationNext()<cr>
 nnoremap <leader>E :call LocationPrevious()<cr>
 
 " Wrap both ways when searching for next and previous errors
-function LocationNext()
+function! LocationNext()
     try
         lnext
     catch /^Vim\%((\a\+)\)\=:E553/
@@ -174,7 +178,7 @@ function LocationNext()
     endtry
 endfunction
 
-function LocationPrevious()
+function! LocationPrevious()
     try
         lprev
     catch /^Vim\%((\a\+)\)\=:E553/
