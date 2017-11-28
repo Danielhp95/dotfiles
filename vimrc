@@ -1,4 +1,10 @@
 " --------- WELCOME TO MY .VIMRC ! --------- "
+" Colourscheme {{{
+syntax enable
+set background=dark
+set t_Co=256 " terminal with 256 colours
+
+" }}}
 " Vundle Plugins {{{
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -16,6 +22,7 @@ Plugin 'tacahiroy/ctrlp-funky' " Check if you want this
 Plugin 'tpope/vim-obsession' " Vim session manager
 Plugin 'gioele/vim-autoswap' " Dealing with swap files
 Plugin 'scrooloose/nerdtree' " Tree directory navigation extension.
+Plugin 'tpope/vim-dispatch' " Running processes in the background 
 " Plugin 'Valloric/YouCompleteMe' " Syntax completion
 " Plugin 'vim-latex/vim-latex' " CHECK HOW TO USE THIS
 
@@ -35,8 +42,6 @@ filetype plugin indent on    " required
 " Miscelaneous {{{
 let mapleader = " "
 set clipboard=unnamedplus
-
-set t_Co=256 " terminal with 256 colours
 
 nnoremap <leader>ev :tabe ~/.vimrc<cr>
 nnoremap <leader>sv :source ~/.vimrc<cr>
@@ -163,6 +168,17 @@ nnoremap <leader>t :NERDTreeToggle<cr>
 " }}}
 " PLUGIN: Syntastic {{{
 
+let g:syntastic_always_populate_loc_list = 1 " Open error list if there are any
+let g:syntastic_check_on_open = 1 " Check syntax on open
+
+let g:syntastic_python_checkers=["flake8"]
+" Ignore the following errors: 'white space before operator'(E221), 
+" 'Line too long'(E501)
+" 'Missing whitespace around operator'(E226)
+let g:syntastic_python_flake8_args="--ignore=E221,E226,E501"
+let g:syntastic_tex_checkers = ['lacheck']
+
+
 " Go to next/previous error
 nnoremap <leader>e :call LocationNext()<cr> 
 nnoremap <leader>E :call LocationPrevious()<cr>
@@ -195,8 +211,5 @@ function! ToggleErrors()
         Errors
     endif
 endfunction
-
-let g:syntastic_always_populate_loc_list = 1 " Open error list if there are any
-let g:syntastic_check_on_open = 1 " Check syntax on open
 
 " }}}
