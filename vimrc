@@ -23,6 +23,7 @@ Plugin 'tpope/vim-obsession' " Vim session manager
 Plugin 'gioele/vim-autoswap' " Dealing with swap files
 Plugin 'scrooloose/nerdtree' " Tree directory navigation extension.
 Plugin 'tpope/vim-dispatch' " Running processes in the background 
+Plugin 'mhinz/vim-startify' " nice startup menu
 " Plugin 'Valloric/YouCompleteMe' " Syntax completion
 " Plugin 'vim-latex/vim-latex' " CHECK HOW TO USE THIS
 
@@ -70,6 +71,7 @@ set ruler " Display position of cursor
 
 set foldmethod=marker " check :help foldmethod
 set foldlevel=0 " Folds closed by default
+
 " }}}
 " Search {{{
 set incsearch " When searching, go directly to matches
@@ -168,7 +170,6 @@ nnoremap <leader>t :NERDTreeToggle<cr>
 " }}}
 " PLUGIN: Syntastic {{{
 
-let g:syntastic_always_populate_loc_list = 1 " Open error list if there are any
 let g:syntastic_check_on_open = 1 " Check syntax on open
 
 let g:syntastic_python_checkers=["flake8"]
@@ -176,7 +177,7 @@ let g:syntastic_python_checkers=["flake8"]
 " 'Line too long'(E501)
 " 'Missing whitespace around operator'(E226)
 let g:syntastic_python_flake8_args="--ignore=E221,E226,E501"
-let g:syntastic_tex_checkers = ['lacheck']
+let g:syntastic_tex_checkers = ['chktex']
 
 
 " Go to next/previous error
@@ -211,5 +212,12 @@ function! ToggleErrors()
         Errors
     endif
 endfunction
+
+let g:syntastic_always_populate_loc_list = 1 " Open error list if there are any
+" }}}
+" PLUGIN: vim-obsession {{{
+
+set laststatus=2 " Always show statusline
+set statusline+=%{ObsessionStatus()} " Show vim session on statusline
 
 " }}}
