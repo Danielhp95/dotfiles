@@ -24,7 +24,7 @@ Plugin 'gioele/vim-autoswap' " Dealing with swap files
 Plugin 'scrooloose/nerdtree' " Tree directory navigation extension.
 Plugin 'tpope/vim-dispatch' " Running processes in the background 
 Plugin 'mhinz/vim-startify' " nice startup menu
-" Plugin 'Valloric/YouCompleteMe' " Syntax completion
+Plugin 'Valloric/YouCompleteMe' " Syntax completion
 " Plugin 'vim-latex/vim-latex' " CHECK HOW TO USE THIS
 
 " Plugin 'jpalardy/vim-slime' Consider using this for python
