@@ -1,9 +1,16 @@
 " --------- WELCOME TO MY .VIMRC ! --------- "
 " Colourscheme {{{
 syntax enable
-set background=dark
+"set background=dark
 set t_Co=256 " terminal with 256 colours
 
+let base16colorspace=256
+" }}}
+" Base16 colours {{{
+if filereadable(expand("~/.vimrc_background"))
+    let base16colorspace=256
+    source ~/.vimrc_background
+endif
 " }}}
 " Vundle Plugins {{{
 set nocompatible              " be iMproved, required
@@ -24,6 +31,7 @@ Plugin 'gioele/vim-autoswap' " Dealing with swap files
 Plugin 'scrooloose/nerdtree' " Tree directory navigation extension.
 Plugin 'tpope/vim-dispatch' " Running processes in the background 
 Plugin 'mhinz/vim-startify' " nice startup menu
+Plugin 'chriskempson/base16-vim' " Base16 colourschemes
 Plugin 'Valloric/YouCompleteMe' " Syntax completion
 " Plugin 'vim-latex/vim-latex' " CHECK HOW TO USE THIS
 
@@ -220,4 +228,24 @@ let g:syntastic_always_populate_loc_list = 1 " Open error list if there are any
 set laststatus=2 " Always show statusline
 set statusline+=%{ObsessionStatus()} " Show vim session on statusline
 
+" }}}
+" PLUGIN: YouCompleteMe {{{
+
+" Close documentation after selection has been made
+autocmd CompleteDone * pclose
+" Check if this does the same as above
+" let g:ycm_autoclose_preview_window_after_completion = 1
+
+" number of characters the user needs to type 
+" before identifier-based completion suggestions are triggered.
+let g:ycm_min_num_of_chars_for_completion = 1
+
+" YCM will populate the location list automatically
+" every time it gets new diagnostic data.
+let g:ycm_always_populate_location_list = 0
+
+
+" This option controls the key mappings used to select the first completion
+" string. Invoking any of them repeatedly cycles forward through the completion list.
+let g:ycm_key_list_select_completion = ['<TAB>', '<Down>', '<Enter>']
 " }}}
