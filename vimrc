@@ -4,13 +4,13 @@ syntax enable
 "set background=dark
 set t_Co=256 " terminal with 256 colours
 
-let base16colorspace=256
 " }}}
 " Base16 colours {{{
-if filereadable(expand("~/.vimrc_background"))
-    let base16colorspace=256
-    source ~/.vimrc_background
-endif
+ let base16colorspace=256
+ if filereadable(expand("~/.vimrc_background"))
+     let base16colorspace=256
+     source ~/.vimrc_background
+ endif
 " }}}
 " Vundle Plugins {{{
 set nocompatible              " be iMproved, required
@@ -27,7 +27,6 @@ Plugin 'tpope/vim-fugitive' " Git plugin
 Plugin 'ctrlpvim/ctrlp.vim' " File navitagion
 Plugin 'tacahiroy/ctrlp-funky' " Check if you want this
 Plugin 'tpope/vim-obsession' " Vim session manager
-Plugin 'gioele/vim-autoswap' " Dealing with swap files
 Plugin 'scrooloose/nerdtree' " Tree directory navigation extension.
 Plugin 'tpope/vim-dispatch' " Running processes in the background 
 Plugin 'mhinz/vim-startify' " nice startup menu
@@ -37,7 +36,7 @@ Plugin 'Valloric/YouCompleteMe' " Syntax completion
 
 " Plugin 'jpalardy/vim-slime' Consider using this for python
 
-Plugin 'scrooloose/syntastic' " Syntax check for most languages.
+" Plugin 'scrooloose/syntastic' " Syntax check for most languages.
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -87,7 +86,7 @@ set hlsearch  " Highlight matches
 nnoremap <leader>h :nohlsearch<cr>
 set ignorecase
 set smartcase
-highlight Search ctermbg=55 cterm=bold
+highlight Search cterm=bold
 
 " }}}
 " Space & Tabs {{{
@@ -178,14 +177,22 @@ nnoremap <leader>t :NERDTreeToggle<cr>
 " }}}
 " PLUGIN: Syntastic {{{
 
+" PYTHON
 let g:syntastic_check_on_open = 1 " Check syntax on open
+let g:syntastic_always_populate_loc_list = 1 " Open error list if there are any
 
 let g:syntastic_python_checkers=["flake8"]
 " Ignore the following errors: 'white space before operator'(E221), 
 " 'Line too long'(E501)
 " 'Missing whitespace around operator'(E226)
-let g:syntastic_python_flake8_args="--ignore=E221,E226,E501"
+" 'At least two spaces between inline comments'(E261)
+" 'Multiple statements in one line'(E701)
+let g:syntastic_python_flake8_args="--ignore=E221,E226,E501,E261,E701"
+let g:syntastic_python_python_exec = 'python3'
+
+" LATEX
 let g:syntastic_tex_checkers = ['chktex']
+
 
 
 " Go to next/previous error
@@ -221,7 +228,6 @@ function! ToggleErrors()
     endif
 endfunction
 
-let g:syntastic_always_populate_loc_list = 1 " Open error list if there are any
 " }}}
 " PLUGIN: vim-obsession {{{
 
@@ -238,7 +244,7 @@ autocmd CompleteDone * pclose
 
 " number of characters the user needs to type 
 " before identifier-based completion suggestions are triggered.
-let g:ycm_min_num_of_chars_for_completion = 1
+let g:ycm_min_num_of_chars_for_completion = 0
 
 " YCM will populate the location list automatically
 " every time it gets new diagnostic data.
