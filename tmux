@@ -56,6 +56,9 @@ bind j select-pane -D
 bind k select-pane -U
 bind l select-pane -R
 
+# Change session "opening" directory
+bind M attach-session -c "#{pane_current_path}" ; display-message "Change session directory to current directory"
+
 # Create new window with input name.
 bind-key C command-prompt -p "Name of new window: " "new-window -n '%%'"
 
@@ -121,7 +124,7 @@ set -g @continuum-restore 'on'
 # Restore vim sessions
 set -g @resurrect-strategy-vim 'session'
 set -g @resurrect-strategy-vim 'session'
-set -g @resurrect-processes 'vim ssh psql mysql sqlite3 npm android-studio'
+set -g @resurrect-processes 'vim ssh psql mysql sqlite3 npm android-studio ~ipython'
 # }}}
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'
