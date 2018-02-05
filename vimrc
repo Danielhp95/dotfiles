@@ -18,25 +18,27 @@ filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=/home/sarios/.fzf/bin/fzf
 call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'tpope/vim-fugitive' " Git plugin
-Plugin 'ctrlpvim/ctrlp.vim' " File navitagion
-Plugin 'tacahiroy/ctrlp-funky' " Check if you want this
 Plugin 'tpope/vim-obsession' " Vim session manager
 Plugin 'scrooloose/nerdtree' " Tree directory navigation extension.
-Plugin 'tpope/vim-dispatch' " Running processes in the background 
 Plugin 'mhinz/vim-startify' " nice startup menu
 Plugin 'chriskempson/base16-vim' " Base16 colourschemes
 Plugin 'Valloric/YouCompleteMe' " Syntax completion
+Plugin 'jpalardy/vim-slime' " To copy and paste code into REPL (ipython, haskell shell, etc...)
+Plugin 'junegunn/fzf' " 
+Plugin 'junegunn/fzf.vim' " To use fzf in vim
+Plugin 'tpope/vim-dispatch' " To run asynchronous tasks in vim
+Plugin 'OmniSharp/omnisharp-vim' " c# IDE in vim!
+Plugin 'scrooloose/syntastic' " Syntax check for most languages.
+
 " Plugin 'vim-latex/vim-latex' " CHECK HOW TO USE THIS
 
-" Plugin 'jpalardy/vim-slime' Consider using this for python
-
-" Plugin 'scrooloose/syntastic' " Syntax check for most languages.
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -51,7 +53,12 @@ filetype plugin indent on    " required
 let mapleader = " "
 set clipboard=unnamedplus
 
+set backspace=indent,eol,start " Allows backspace to delete anything
+set paste " to have a nice pasting experience in vim!
+
+" Open vimrc in a new tab
 nnoremap <leader>ev :tabe ~/.vimrc<cr>
+" Source vimrc from anywhere (doesn't work properly)
 nnoremap <leader>sv :source ~/.vimrc<cr>
 
 " Multi-and single-line comments in Python
@@ -217,9 +224,9 @@ function! LocationPrevious()
 endfunction
 
 " Toggle error location list
-nnoremap <leader>te :call ToggleErrors()<cr>
+nnoremap <leader>se :call ShowErrors()<cr>
 
-function! ToggleErrors()
+function! ShowErrors()
     let old_last_winnr = winnr('$')
     lclose
     if old_last_winnr == winnr('$')
@@ -253,5 +260,18 @@ let g:ycm_always_populate_location_list = 0
 
 " This option controls the key mappings used to select the first completion
 " string. Invoking any of them repeatedly cycles forward through the completion list.
-let g:ycm_key_list_select_completion = ['<TAB>', '<Down>', '<Enter>']
+let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
 " }}}
+" PLUGIN: Vim-Slime {{{
+let g:slime_target = "tmux"
+
+" }}}
+" PLUGIN: fzf-vim {{{
+
+nnoremap <c-L> :Lines<cr>
+nnoremap <c-P> :Files<cr>
+
+" }}}
+" PLUGIN: Omnisharp-vim {{{
+let g:OmniSharp_selector_ui = 'fzf'    " Use fzf.vim
+" }}} 
