@@ -94,6 +94,14 @@ alias l='ls -CF'
 
 alias wow='git status'
 alias gitadog='git log --all --decorate --oneline --graph'
+alias day='base16_google-light'
+alias night='base16_3024'
+
+alias Unity='~/Unity-2017.3.0p2/Editor/Unity'
+
+# pipenv alias
+alias pvr='pipenv run'
+pivs='pipenv shell'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -118,3 +126,10 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# Base16
+BASE16_SHELL=$HOME/.config/base16-shell/
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

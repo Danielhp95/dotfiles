@@ -36,6 +36,7 @@ Plugin 'junegunn/fzf.vim' " To use fzf in vim
 Plugin 'tpope/vim-dispatch' " To run asynchronous tasks in vim
 Plugin 'OmniSharp/omnisharp-vim' " c# IDE in vim!
 Plugin 'scrooloose/syntastic' " Syntax check for most languages.
+Plugin 'kien/rainbow_parentheses.vim' " Make parenthesis match colour
 
 " Plugin 'vim-latex/vim-latex' " CHECK HOW TO USE THIS
 
@@ -181,6 +182,9 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 " Opens/Closes NERDTree in a tab
 nnoremap <leader>t :NERDTreeToggle<cr>
 
+" Ignore files
+let NERDTreeIgnore = ['\.meta$','\.pyc$','\.sln$']
+
 " }}}
 " PLUGIN: Syntastic {{{
 
@@ -275,3 +279,10 @@ nnoremap <c-P> :Files<cr>
 " PLUGIN: Omnisharp-vim {{{
 let g:OmniSharp_selector_ui = 'fzf'    " Use fzf.vim
 " }}} 
+" PLUGIN: rainbow-parenthesis {{{
+" Always on
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+" }}}

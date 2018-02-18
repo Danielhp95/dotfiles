@@ -57,7 +57,7 @@ bind k select-pane -U
 bind l select-pane -R
 
 # Change session "opening" directory
-bind M attach-session -c "#{pane_current_path}" ; display-message "Change session directory to current directory"
+bind M attach-session -c "#{pane_current_path}" \; display-message "Change session directory to #{pane_current_path}"
 
 # Create new window with input name.
 bind-key C command-prompt -p "Name of new window: " "new-window -n '%%'"
