@@ -15,7 +15,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'         " Status bar
 Plugin 'vim-airline/vim-airline-themes'  " Status bar themes
  
-" Plugin 'tpope/vim-fugitive'            " Git plugin
+Plugin 'tpope/vim-fugitive'            " Git plugin
 Plugin 'tpope/vim-obsession'             " Vim session manager
 Plugin 'scrooloose/nerdtree'             " Tree directory navigation extension.
 " Plugin 'mhinz/vim-startify'            " nice startup menu
@@ -27,6 +27,8 @@ Plugin 'junegunn/fzf.vim'                " To use fzf in vim
 " Plugin 'OmniSharp/omnisharp-vim'
 Plugin 'scrooloose/syntastic'            " Syntax check for most languages.
 Plugin 'kien/rainbow_parentheses.vim'    " Make parenthesis match colour
+
+Plugin 'vim-latex/vim-latex'             " For writing latex in vim
 
 call vundle#end()            " required
  
@@ -109,11 +111,11 @@ highlight Search cterm=bold
 " " Most copied from
 " " https://www.reddit.com/r/vim/comments/21f4gm/best_workflow_when_using_fugitive/
 " set diffopt+=vertical
-" nnoremap <leader>ga :Git add %:p<CR><CR>
-" nnoremap <leader>gs :Gstatus<CR>
-" nnoremap <leader>gc :Gcommit -v -q<CR>
+nnoremap <leader>ga :Git add %:p<CR><CR>
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gc :Gcommit -v -q<CR>
 " nnoremap <leader>gt :Gcommit -v -q %:p<CR>
-" nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gd :Gdiff<CR>
 " nnoremap <leader>ge :Gedit<CR>
 " nnoremap <leader>gr :Gread<CR>
 " nnoremap <leader>gw :Gwrite<CR><CR>
@@ -223,9 +225,11 @@ set splitbelow
 " }}}
 " PLUGIN: fzf-vim {{{
 
-nnoremap <c-L> :Lines<cr>
-nnoremap <c-P> :Files<cr>
-nnoremap <c-F> :Ag<cr>
+nnoremap <c-L> :Lines<CR>
+nnoremap <c-P> :Files<CR>
+nnoremap <c-F> :Ag<CR>
+nnoremap <c-B> :Buffers<CR>
+nnoremap <c-H> :Help<CR>
 
 " }}}
 " " PLUGIN: Omnisharp-vim (NOT IN USE) {{{
@@ -251,4 +255,16 @@ let g:airline_theme='simple'
 " Enables vim-airline for tabs
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts= 1
+" }}}
+" PLUGIN: vim-latex {{{
+let g:tex_flavor='latex' " To tell vim-latex that we are dealing with LaTeX files
+
+" TIP: if you write your \label's as \label{fig:something}, then if you
+" " type in \ref{fig: and press you will automatically cycle through
+" " all the figure labels. Very useful!
+set iskeyword+=:
+
+" In order to compile latex file using compile script
+nnoremap <leader><c-c> :silent !./compile.sh<CR>
+
 " }}}

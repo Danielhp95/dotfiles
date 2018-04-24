@@ -96,12 +96,16 @@ alias wow='git status'
 alias gitadog='git log --all --decorate --oneline --graph'
 alias day='base16_google-light'
 alias night='base16_3024'
+alias normal='base16_solarized-dark'
 
 alias Unity='~/Unity-2017.3.0p2/Editor/Unity'
 
 # pipenv alias
 alias pvr='pipenv run'
 pivs='pipenv shell'
+
+# enable control-s and control-q
+stty -ixon
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
