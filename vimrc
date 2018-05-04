@@ -29,6 +29,7 @@ Plugin 'scrooloose/syntastic'            " Syntax check for most languages.
 Plugin 'kien/rainbow_parentheses.vim'    " Make parenthesis match colour
 
 Plugin 'vim-latex/vim-latex'             " For writing latex in vim
+Plugin 'majutsushi/tagbar'               " Tagbar to see methods / variables
 
 call vundle#end()            " required
  
