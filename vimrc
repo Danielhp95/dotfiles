@@ -12,24 +12,29 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'vim-airline/vim-airline'         " Status bar
-Plugin 'vim-airline/vim-airline-themes'  " Status bar themes
+" Aesthetic plugins
+Plugin 'vim-airline/vim-airline'        " Status bar
+Plugin 'vim-airline/vim-airline-themes' " Status bar themes
+Plugin 'chriskempson/base16-vim'        " Base16 colourschemes
  
-Plugin 'tpope/vim-fugitive'            " Git plugin
-Plugin 'tpope/vim-obsession'             " Vim session manager
-Plugin 'scrooloose/nerdtree'             " Tree directory navigation extension.
-" Plugin 'mhinz/vim-startify'            " nice startup menu
-Plugin 'chriskempson/base16-vim'         " Base16 colourschemes
-Plugin 'Valloric/YouCompleteMe'          " Syntax completion
-Plugin 'junegunn/fzf'                    " fuzzy search finder 
-Plugin 'junegunn/fzf.vim'                " To use fzf in vim
-" Plugin 'tpope/vim-dispatch'            " To run asynchronous tasks in vim
-" Plugin 'OmniSharp/omnisharp-vim'
-Plugin 'scrooloose/syntastic'            " Syntax check for most languages.
-Plugin 'kien/rainbow_parentheses.vim'    " Make parenthesis match colour
+" Syntax / semantic plugins
+Plugin 'kien/rainbow_parentheses.vim'   " Make parenthesis match colour
+Plugin 'Valloric/YouCompleteMe'         " Syntax completion
+Plugin 'scrooloose/syntastic'           " Syntax check for most languages.
 
-Plugin 'vim-latex/vim-latex'             " For writing latex in vim
-Plugin 'majutsushi/tagbar'               " Tagbar to see methods / variables
+" Tool plugins
+Plugin 'tpope/vim-fugitive'             " Git plugin
+Plugin 'tpope/vim-obsession'            " Vim session manager
+Plugin 'junegunn/fzf'                   " fuzzy search finder 
+Plugin 'junegunn/fzf.vim'               " To use fzf in vim
+Plugin 'majutsushi/tagbar'              " Tagbar to see methods / variables
+Plugin 'scrooloose/nerdtree'            " Tree directory navigation extension.
+Plugin 'tpope/vim-dispatch'             " To run asynchronous tasks in vim
+
+" Language specific 
+" Plugin 'OmniSharp/omnisharp-vim'
+Plugin 'vim-latex/vim-latex'            " For writing latex in vim
+
 
 call vundle#end()            " required
  
