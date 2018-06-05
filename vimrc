@@ -30,6 +30,7 @@ Plugin 'junegunn/fzf.vim'               " To use fzf in vim
 Plugin 'majutsushi/tagbar'              " Tagbar to see methods / variables
 Plugin 'scrooloose/nerdtree'            " Tree directory navigation extension.
 Plugin 'tpope/vim-dispatch'             " To run asynchronous tasks in vim
+Plugin 'vim-scripts/SearchComplete'     " Tab completition inside search '/'
 
 " Language specific 
 " Plugin 'OmniSharp/omnisharp-vim'
@@ -150,20 +151,25 @@ endif
 " PLUGIN: NERDTree {{{
 " Opens/Closes NERDTree
 nnoremap <leader>t :NERDTreeToggle<cr>
+" Finds file in tree
+nnoremap <leader>ff :NERDTreeFind<cr>
 
 " If NERDTree is the only buffer left open, close it
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
  
+" Remove the "?" text and bookmark text from UI
+let NERDTreeMinimalUI = 1
+
 " Ignore files
 let NERDTreeIgnore = ['\.meta$','\.pyc$','\.sln$']
 " }}}
 " PLUGIN: Syntastic {{{
  
-let g:syntastic_check_on_open = 1 " Check syntax on open
-let g:syntastic_always_populate_loc_list = 1 " Errors will be populated in location list immediately after being found
+" let g:syntastic_check_on_open = 1 " Check syntax on open
+" let g:syntastic_always_populate_loc_list = 1 " Errors will be populated in location list immediately after being found
 
 " The error window will automatically open when errors are detected, and automatically close when none are detected
-let g:syntastic_auto_loc_list = 1 
+" let g:syntastic_auto_loc_list = 1 
  
 " PYTHON
 let g:syntastic_python_checkers=["flake8"]
@@ -172,7 +178,10 @@ let g:syntastic_python_checkers=["flake8"]
 " 'Missing whitespace around operator'(E226)
 " 'At least two spaces between inline comments'(E261)
 " 'Multiple statements in one line'(E701)
-let g:syntastic_python_flake8_args="--ignore=E221,E226,E501,E261,E701"
+" 'Module import not at the top of file'(E402)
+" 'Do not assign lambda to a variable, use def instead' (E731)
+" 'Comparison against False literal with stupid syntax'(E712)
+let g:syntastic_python_flake8_args="--ignore=E221,E226,E501,E261,E701,E402,E731,E712"
 let g:syntastic_python_python_exec = 'python3'
  
 " LATEX
