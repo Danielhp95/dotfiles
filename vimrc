@@ -152,7 +152,7 @@ endif
 " Opens/Closes NERDTree
 nnoremap <leader>t :NERDTreeToggle<cr>
 " Finds file in tree
-nnoremap <leader>ff :NERDTreeFind<cr>
+nnoremap <leader>ff :let current_file=expand('%:p')<cr>:NERDTreeFind<cr>:echo current_file<cr>
 
 " If NERDTree is the only buffer left open, close it
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -186,6 +186,11 @@ let g:syntastic_python_python_exec = 'python3'
  
 " LATEX
 let g:syntastic_tex_checkers = ['chktex']
+
+" JAVA
+" Disable syntastic for java by fooling syntastic to thinking that javac has
+" been loaded
+let g:loaded_syntastic_java_javac_checker = 1
 
 " Go to next/previous error
 nnoremap <leader>e :call LocationNext()<cr> 
