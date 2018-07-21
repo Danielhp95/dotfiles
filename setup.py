@@ -21,6 +21,8 @@ print('Copying tmux')
 copy('./tmux', '~/.tmux.conf')
 print('Copying fzf.bash')
 copy('fzf.bash', '~/.fzf.bash')
+print('Copying inputrc')
+copy('inputrc', '~/.inputrc')
 print('Creating bash_personal if not exists')
 syscall('touch ~/.bash_personal')
 
