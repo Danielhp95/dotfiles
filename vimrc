@@ -31,6 +31,7 @@ Plugin 'majutsushi/tagbar'              " Tagbar to see methods / variables
 Plugin 'scrooloose/nerdtree'            " Tree directory navigation extension.
 Plugin 'tpope/vim-dispatch'             " To run asynchronous tasks in vim
 Plugin 'vim-scripts/SearchComplete'     " Tab completition inside search '/'
+Plugin 'dbeniamine/cheat.sh-vim'        " Uses the wonderful cheat.sh web thingy.
 
 " Language specific 
 " Plugin 'OmniSharp/omnisharp-vim'
@@ -164,6 +165,8 @@ let NERDTreeMinimalUI = 1
 let NERDTreeIgnore = ['\.meta$','\.pyc$','\.sln$']
 " }}}
 " PLUGIN: Syntastic {{{
+"
+highlight link SyntasticError Error
  
 " let g:syntastic_check_on_open = 1 " Check syntax on open
 " let g:syntastic_always_populate_loc_list = 1 " Errors will be populated in location list immediately after being found
@@ -175,7 +178,7 @@ let NERDTreeIgnore = ['\.meta$','\.pyc$','\.sln$']
 let g:syntastic_python_checkers=["flake8"]
 " Ignore the following errors: 'white space before operator'(E221), 
 " 'Line too long'(E501)
-" 'Missing whitespace around operator'(E226)
+" 'Missing whitespace around operator'(E226){{{}}}
 " 'At least two spaces between inline comments'(E261)
 " 'Multiple statements in one line'(E701)
 " 'Module import not at the top of file'(E402)
@@ -190,7 +193,7 @@ let g:syntastic_tex_checkers = ['chktex']
 " JAVA
 " Disable syntastic for java by fooling syntastic to thinking that javac has
 " been loaded
-let g:loaded_syntastic_java_javac_checker = 1
+" let g:loaded_syntastic_java_javac_checker = 1
 
 " Go to next/previous error
 nnoremap <leader>e :call LocationNext()<cr> 
@@ -288,3 +291,8 @@ set iskeyword+=:
 nnoremap <leader><c-c> :silent !./compile.sh<CR>
 
 " }}}
+" PLUGIN: vim-fugitive {{{
+
+" Increase default height of git status window by 20 rows
+nmap <leader>gs :Gstatus<CR><C-w>20+
+"}}}
