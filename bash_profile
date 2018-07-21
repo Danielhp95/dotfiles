@@ -15,5 +15,9 @@ alias sshyarcc="ssh dh1135@login.yarcc.york.ac.uk"
 # pipenv alias
 alias pvr='pipenv run'
 
-#alias Unity='~/Unity-2017.3.0p2/Editor/Unity'
-alias Unity='echo "Update this alias'
+alias Unity='~/ProgramFiles/Unity/Editor/Unity'
+
+alias se='sensors'
+
+# Remaping caps to escape
+setxkbmap -option caps:escape
