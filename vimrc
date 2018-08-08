@@ -23,7 +23,9 @@ Plugin 'Valloric/YouCompleteMe'         " Syntax completion
 Plugin 'scrooloose/syntastic'           " Syntax check for most languages.
 
 " Tool plugins
+Plugin 'vim-scripts/IndexedSearch'      " Shows number of matches for search commands
 Plugin 'tpope/vim-fugitive'             " Git plugin
+Plugin 'mhinz/vim-signify'              " Shows what lines have been changed / added / deleted in git
 Plugin 'tpope/vim-obsession'            " Vim session manager
 Plugin 'junegunn/fzf'                   " fuzzy search finder 
 Plugin 'junegunn/fzf.vim'               " To use fzf in vim
@@ -79,6 +81,7 @@ set laststatus=2  " Makes statusline always visible (bottom line showing file, m
 set number        " Shows line numbers
 set showcmd       " Shows commands as they are being typed. In visual mode, shows the size of the selected area. In block visual mode, shows the dimensions of the selected block (linesXcolumns)
 set wildmenu      " Shows file suggestion menu for commands like :e <Tab>
+set wildmode=list:longest " Show matches bash style
 
 set ruler " Display position of cursor. (line, column,    % of file)
 
@@ -107,12 +110,6 @@ nnoremap L :tabnext<cr>
 " Scroll keeping the cursor in the same position in the screen
 nnoremap <C-k> <C-y>k
 nnoremap <C-j> <C-e>j
-" }}}
-" Default Highlights {{{
-" Bold text selected in visual mode
-highlight Visual cterm=bold
-" Set the font of the matching searched terms to *bold*
-highlight Search cterm=bold
 " }}}
 " " PLUGIN: vim-fugitive {{{
  
@@ -296,3 +293,11 @@ nnoremap <leader><c-c> :silent !./compile.sh<CR>
 " Increase default height of git status window by 20 rows
 nmap <leader>gs :Gstatus<CR><C-w>20+
 "}}}
+" Default Highlights {{{
+" Default highlights MUST be at the end of the vimrc because some plugins
+" override higlight settings
+" Bold text selected in visual mode
+highlight Visual cterm=bold
+" Set the font of the matching searched terms to *bold*
+highlight Search cterm=bold
+" }}}
