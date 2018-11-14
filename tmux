@@ -1,20 +1,18 @@
 # --------- WELCOME TO MY .tmux.conf ! --------- "
 # TPM Plugins {{{
 # List of plugins
-set -g @plugin 'tmux-plugins/tpm'
-set -g @plugin 'tmux-plugins/tmux-sensible'
-set -g @plugin 'tmux-plugins/tmux-sidebar'
-set -g @plugin 'tmux-plugins/tmux-resurrect'
-set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @plugin 'tmux-plugins/tpm'              # Tmux package manager
+set -g @plugin 'tmux-plugins/tmux-sensible'    # "Sensible" default options
+set -g @plugin 'tmux-plugins/tmux-sidebar'     # Pressing prefix + ESC shows directory tree
+set -g @plugin 'tmux-plugins/tmux-resurrect'   # Restores tmux sessions upon calling tmux
+set -g @plugin 'tmux-plugins/tmux-continuum'   # Keeps track of tmux sessions
+set -g @plugin 'tmux-plugins/tmux-battery'     # Shows battery status in the status bar 
 # }}}
 # UI Layout {{{
 
 # Start windows and panes index at 1, not 0
 set -g base-index 1
 setw -g pane-base-index 1
-
-# Show clock
-set-window-option -g clock-mode-colour green #green
 
 # Rather than constraining window size to the maximum size of any client 
 # connected to the *session*, constrain window size to the maximum size of any 
@@ -23,15 +21,6 @@ setw -g aggressive-resize on
 
 # Window's name changes according to the process being run on them
 set-window-option -g automatic-rename
-
-# Statusline options
-set-option -g status-position top # Sets the statusline on the top of the screen.
-set -g status-interval 1
-set -g status-justify centre # center align window list
-set -g status-left-length 20
-set -g status-right-length 140
-set -g status-left '#[fg=green]#H #[fg=black]• #[fg=green,bright]#(uname -r | cut -c 1-6)#[default]'
-set -g status-right '#[fg=green,bg=default,bright]#(tmux-mem-cpu-load) #[fg=red,dim,bg=default]#(uptime | cut -f 4-5 -d " " | cut -f 1 -d ",") #[fg=white,bg=default]%a%l:%M:%S %p#[default] #[fg=blue]%Y-%m-%d'
 
 # }}}
 # Key mappings {{{
@@ -56,6 +45,10 @@ bind j select-pane -D
 bind k select-pane -U
 bind l select-pane -R
 
+# bind HL to window traversal
+bind H select-window -t :-
+bind L select-window -t :+
+
 # Change session "opening" directory
 bind M attach-session -c "#{pane_current_path}" \; display-message "Change session directory to #{pane_current_path}"
 
@@ -68,35 +61,62 @@ bind r source-file ~/.tmux.conf \; display-message "Config reloaded..."
 # }}}
 # Colour scheme {{{
 
-# Allow for 256 color terminal
-set -g default-terminal "screen-256color"
+######################
+### DESIGN CHANGES ###
+######################
 
-# # https://github.com/seebi/tmux-colors-solarized/blob/master/tmuxcolors-256.conf
-# Sets statusline colours (bar on the bottom)
-set-option -g status-bg colour235 #base02
-set-option -g status-fg colour136 #yellow
-set-option -g status-attr default
+# loud or quiet?
+set-option -g visual-activity off
+set-option -g visual-bell off
+set-option -g visual-silence off
+set-window-option -g monitor-activity off
+set-option -g bell-action none
 
-# default window title colors
-set-window-option -g window-status-fg colour244 #base0
-set-window-option -g window-status-bg default
+#  modes
+setw -g clock-mode-colour colour5
+setw -g mode-attr bold
+setw -g mode-fg colour1
+setw -g mode-bg colour18
 
-# active window title colors
-set-window-option -g window-status-current-fg colour166 #orange
-set-window-option -g window-status-current-bg default
-set-window-option -g window-status-current-attr bright
+# panes
+set -g pane-border-bg colour0
+set -g pane-border-fg colour19
+set -g pane-active-border-bg colour0
+set -g pane-active-border-fg colour9
 
-# pane border
-set-option -g pane-border-fg colour235 #base02
-set-option -g pane-active-border-fg colour240 #base01
+# statusbar
+set -g status-position bottom
+set -g status-justify left
+set -g status-bg colour18
+set -g status-fg colour137
+set -g status-attr dim
+set -g status-left ''
+set -g status-right '#[fg=colour233,bg=colour8,bold] %H:%M:%S #[fg=colour233,bg=colour19,bold] %d/%m #[fg=red]#{battery_status_bg} Batt: #{battery_icon} #{battery_percentage} #{battery_remain} '
+set -g status-right-length 50
+set -g status-left-length 20
 
-# message text
-set-option -g message-bg colour235 #base02
-set-option -g message-fg colour166 #orange
+setw -g window-status-current-fg colour1
+setw -g window-status-current-bg colour19
+setw -g window-status-current-attr bold
+setw -g window-status-current-format ' #I#[fg=colour249]:#[fg=colour255]#W#[fg=colour249]#F '
 
-# pane number display
-set-option -g display-panes-active-colour colour33 #blue
-set-option -g display-panes-colour colour166 #orange
+setw -g window-status-fg colour9
+setw -g window-status-bg colour18
+setw -g window-status-attr none
+setw -g window-status-format ' #I#[fg=colour237, bold]:#[fg=colour250]#W#[fg=colour244,bold]#F '
+
+setw -g window-status-bell-attr bold
+setw -g window-status-bell-fg colour255
+setw -g window-status-bell-bg colour1
+
+# messages
+set -g message-attr bold
+set -g message-fg colour232
+set -g message-bg colour16
+
+# Statusline options
+set-option -g status-position top # Sets the statusline on the top of the screen.
+set -g status-interval 1
 
 # }}}
 # Miscelaneous {{{
@@ -106,7 +126,6 @@ set-option -g mouse on
 
 # Allows for faster key repetition. Don't wait for new keys to be pressed.
 set -s escape-time 0
-
 
 # Activity monitoring
 # Allows tmux to check if there is any activity (change) in any window/pane
@@ -123,9 +142,17 @@ set -g @continuum-restore 'on'
 
 # Restore vim sessions
 set -g @resurrect-strategy-vim 'session'
-set -g @resurrect-strategy-vim 'session'
 set -g @resurrect-processes 'vim ssh psql mysql sqlite3 npm android-studio ~ipython'
+
+# Restore pane contents
+#set -g @resurrect-capture-pane-contents 'on'
+
+# Restore bash history
+#set -g @resurrect-save-shell-history 'on'
 # }}}
+
+# Initializes bashrc for every pane
+set-option -g default-command "exec /bin/bash"
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'
 # vim:foldmethod=marker:foldlevel=0
