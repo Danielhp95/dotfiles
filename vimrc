@@ -16,6 +16,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'        " Status bar
 Plugin 'vim-airline/vim-airline-themes' " Status bar themes
 Plugin 'chriskempson/base16-vim'        " Base16 colourschemes
+Plugin 'junegunn/goyo.vim'              " Distraction free vim!
  
 " Syntax / semantic plugins
 Plugin 'kien/rainbow_parentheses.vim'   " Make parenthesis match colour
@@ -23,6 +24,7 @@ Plugin 'Valloric/YouCompleteMe'         " Syntax completion
 Plugin 'scrooloose/syntastic'           " Syntax check for most languages.
 
 " Tool plugins
+Plugin 'vim-scripts/ZoomWin'            " Toggles fullscreening of current buffer in a window, Mapping: <c-w>o 
 Plugin 'vim-scripts/IndexedSearch'      " Shows number of matches for search commands
 Plugin 'tpope/vim-fugitive'             " Git plugin
 Plugin 'mhinz/vim-signify'              " Shows what lines have been changed / added / deleted in git
@@ -34,11 +36,13 @@ Plugin 'scrooloose/nerdtree'            " Tree directory navigation extension.
 Plugin 'tpope/vim-dispatch'             " To run asynchronous tasks in vim
 Plugin 'vim-scripts/SearchComplete'     " Tab completition inside search '/'
 Plugin 'dbeniamine/cheat.sh-vim'        " Uses the wonderful cheat.sh web thingy.
+Plugin 'mbbill/undotree'                " Undo tree visualizer
+Plugin 'joonty/vdebug.git'              " Multi-language debugger
+
 
 " Language specific 
 " Plugin 'OmniSharp/omnisharp-vim'
 Plugin 'vim-latex/vim-latex'            " For writing latex in vim
-
 
 call vundle#end()            " required
  
@@ -73,6 +77,22 @@ nnoremap <leader>r :source ~/.vimrc<CR>
 nnoremap <C-S> :w<CR>
 vnoremap <C-S> <Esc>:w<CR>
 inoremap <C-S> <Esc>:w<CR>i
+
+" Remove trailing whitespaces
+nnoremap <leader>rw :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+
+
+" Search for visually selected text, forwards or backwards.
+vnoremap <silent> * :<C-U>
+            \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+            \gvy/<C-R><C-R>=substitute(
+            \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+            \gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+            \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+            \gvy?<C-R><C-R>=substitute(
+            \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+            \gV:call setreg('"', old_reg, old_regtype)<CR>
 " }}}
 " UI layout {{{
 syntax enable
@@ -109,18 +129,20 @@ nnoremap L :tabnext<cr>
  
 " Scroll keeping the cursor in the same position in the screen
 nnoremap <C-k> <C-y>k
-nnoremap <C-j> <C-e>j
+nnoremap <C-j> j<C-e>
 " }}}
-" " PLUGIN: vim-fugitive {{{
+" PLUGIN: vim-fugitive {{{
  
-" " Most copied from
-" " https://www.reddit.com/r/vim/comments/21f4gm/best_workflow_when_using_fugitive/
+" Most copied from
+" https://www.reddit.com/r/vim/comments/21f4gm/best_workflow_when_using_fugitive/
 " set diffopt+=vertical
 nnoremap <leader>ga :Git add %:p<CR><CR>
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gc :Gcommit -v -q<CR>
 " nnoremap <leader>gt :Gcommit -v -q %:p<CR>
+
 nnoremap <leader>gd :Gdiff<CR>
+
 " nnoremap <leader>ge :Gedit<CR>
 " nnoremap <leader>gr :Gread<CR>
 " nnoremap <leader>gw :Gwrite<CR><CR>
@@ -136,7 +158,7 @@ nnoremap <leader>gd :Gdiff<CR>
 " noremap <leader>p dp:diffupdate<CR>
 
 " " }}}
-" PLUGIN Base16-vim {{{
+" PLUGIN: Base16-vim {{{
 set t_Co=256 " terminal with 256 colours
 
 let base16colorspace=256
@@ -181,7 +203,8 @@ let g:syntastic_python_checkers=["flake8"]
 " 'Module import not at the top of file'(E402)
 " 'Do not assign lambda to a variable, use def instead' (E731)
 " 'Comparison against False literal with stupid syntax'(E712)
-let g:syntastic_python_flake8_args="--ignore=E221,E226,E501,E261,E701,E402,E731,E712"
+" 'Multiple spaces after ':' '(E241)
+let g:syntastic_python_flake8_args="--ignore=E221,E226,E501,E261,E701,E402,E731,E712,E241"
 let g:syntastic_python_python_exec = 'python3'
  
 " LATEX
@@ -245,20 +268,15 @@ set splitbelow
 " }}}
 " PLUGIN: fzf-vim {{{
 
-nnoremap <c-L> :Lines<CR>
+nnoremap <c-L> :BLines<CR>
 nnoremap <c-P> :Files<CR>
 nnoremap <c-F> :Ag<CR>
 nnoremap <c-B> :Buffers<CR>
 nnoremap <c-H> :Help<CR>
+nnoremap <c-M> :Maps<CR>
+nnoremap <CR> :Lines<CR>
 
 " }}}
-" " PLUGIN: Omnisharp-vim (NOT IN USE) {{{
-" CURRENTLY NOT IN USE
-" let g:OmniSharp_selector_ui = 'fzf'    " Use fzf.vim
-" let g:OmniSharp_server_path = '~/vim-plugins/omnisharp/OmniSharp.exe'
-" 
-" let g:OmniSharp_host = "http://localhost:2000" " This is the default value, setting it isn't actually necessary
-" " }}} 
 " PLUGIN: Rainbow-Parentheses {{{
 " VimEnter is an event that happens immediately after all Vim initialization has been completed
 " Syntax is an event that happens after the filetype of a file has been inferred
@@ -268,7 +286,7 @@ autocmd Syntax * RainbowParenthesesLoadRound
 autocmd Syntax * RainbowParenthesesLoadSquare
 autocmd Syntax * RainbowParenthesesLoadBraces
 " }}}
-" PLUGIN vim-airline {{{
+" PLUGIN: vim-airline {{{
 set encoding=utf-8 " Needed by vim-airline to work with powerfonts
 let g:airline_theme='simple'
 
@@ -284,15 +302,24 @@ let g:tex_flavor='latex' " To tell vim-latex that we are dealing with LaTeX file
 " " all the figure labels. Very useful!
 set iskeyword+=:
 
-" In order to compile latex file using compile script
+" In order to compile latex file using ./compile script
 nnoremap <leader><c-c> :silent !./compile.sh<CR>
 
 " }}}
-" PLUGIN: vim-fugitive {{{
+" PLUGIN: Goyo {{{
+" Open Goyo (focus) on the current buffer
+nnoremap <leader>gg :Goyo<CR>
+" Uses Goyo callback function to auto-reset the bold highlight for visual terms
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
-" Increase default height of git status window by 20 rows
-nmap <leader>gs :Gstatus<CR><C-w>20+
-"}}}
+function! s:goyo_leave()
+    highlight Visual cterm=bold
+endfunction
+
+" }}}
+" PLUGIN: Tagbar {{{
+nnoremap <leader>tb :TagbarToggle<cr>
+" }}}
 " Default Highlights {{{
 " Default highlights MUST be at the end of the vimrc because some plugins
 " override higlight settings
@@ -300,4 +327,5 @@ nmap <leader>gs :Gstatus<CR><C-w>20+
 highlight Visual cterm=bold
 " Set the font of the matching searched terms to *bold*
 highlight Search cterm=bold
+highlight IncSearch cterm=bold
 " }}}
