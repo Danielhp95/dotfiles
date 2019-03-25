@@ -1,2 +1,6 @@
 # configs
-Configuration files for tmux, terminal, vim
+Configuration files for
++ tmux
++ inputrc
++ vim
++ zsh

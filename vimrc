@@ -17,17 +17,20 @@ Plugin 'vim-airline/vim-airline'        " Status bar
 Plugin 'vim-airline/vim-airline-themes' " Status bar themes
 Plugin 'chriskempson/base16-vim'        " Base16 colourschemes
 Plugin 'junegunn/goyo.vim'              " Distraction free vim!
+Plugin 'mhinz/vim-startify'             " Fancy start screen
+Plugin 'ehamberg/vim-cute-python'       " Use ligatures for python
  
 " Syntax / semantic plugins
 Plugin 'kien/rainbow_parentheses.vim'   " Make parenthesis match colour
 Plugin 'Valloric/YouCompleteMe'         " Syntax completion
 Plugin 'scrooloose/syntastic'           " Syntax check for most languages.
 
-" Tool plugins
+" Miscelaneous
 Plugin 'vim-scripts/ZoomWin'            " Toggles fullscreening of current buffer in a window, Mapping: <c-w>o 
 Plugin 'vim-scripts/IndexedSearch'      " Shows number of matches for search commands
 Plugin 'tpope/vim-fugitive'             " Git plugin
-Plugin 'mhinz/vim-signify'              " Shows what lines have been changed / added / deleted in git
+Plugin 'rbong/vim-flog'                 " Git log inside vim
+Plugin 'airblade/vim-gitgutter'         " Shows what lines have been changed / added / deleted in git
 Plugin 'tpope/vim-obsession'            " Vim session manager
 Plugin 'junegunn/fzf'                   " fuzzy search finder 
 Plugin 'junegunn/fzf.vim'               " To use fzf in vim
@@ -37,7 +40,8 @@ Plugin 'tpope/vim-dispatch'             " To run asynchronous tasks in vim
 Plugin 'vim-scripts/SearchComplete'     " Tab completition inside search '/'
 Plugin 'dbeniamine/cheat.sh-vim'        " Uses the wonderful cheat.sh web thingy.
 Plugin 'mbbill/undotree'                " Undo tree visualizer
-Plugin 'joonty/vdebug.git'              " Multi-language debugger
+Plugin 'terryma/vim-multiple-cursors'   " Sublime text like multiple cursor feature 
+Plugin 'roxma/vim-window-resize-easy'   " Allows to resize windows without typing <c-w> everytime
 
 
 " Language specific 
@@ -121,6 +125,9 @@ set expandtab " In Insert mode: Use the appropriate number of spaces to insert a
 set tabstop=4 " Number of spaces that a <Tab> counts for
 set shiftwidth=4 " Number of spaces to use for each step of indention with commands like '>>' or '<<'.
 set nowrap " Don't wrap lines if line length exceeds display length
+
+" Toggles wrap
+nnoremap <leader>tw :set wrap!<cr>
 " " }}}
 " Movement {{{
 " Tab movement
@@ -129,7 +136,19 @@ nnoremap L :tabnext<cr>
  
 " Scroll keeping the cursor in the same position in the screen
 nnoremap <C-k> <C-y>k
-nnoremap <C-j> j<C-e>
+nnoremap <c-j> j<c-e>
+" }}}
+" Spelling {{{
+map <leader>ss :setlocal spell!<cr>
+
+" Shortcuts:
+" Go to next/previous highlighted word (n, p)
+map <leader>sn ]s
+map <leader>sp [s
+" Add to dictionary
+map <leader>sa zg
+" Show Suggestions
+map <leader>sc z=
 " }}}
 " PLUGIN: vim-fugitive {{{
  
@@ -255,15 +274,16 @@ endfunction
  
 set runtimepath +=~/.vim/bundle/YouCompleteMe
 
-" Close documentation after selection has been made
-autocmd CompleteDone * pclose
-
 " number of characters the user needs to type 
 " before identifier-based completion suggestions are triggered.
 let g:ycm_min_num_of_chars_for_completion = 0
  
 " Show documentation in the bottom of screen
 set splitbelow
+
+nnoremap <leader>sd :YcmCompleter GetDoc<cr>
+nnoremap <leader>sr :YcmCompleter GoToReferences<cr>
+nnoremap <leader>st :YcmCompleter GetType<cr>
  
 " }}}
 " PLUGIN: fzf-vim {{{
@@ -273,8 +293,6 @@ nnoremap <c-P> :Files<CR>
 nnoremap <c-F> :Ag<CR>
 nnoremap <c-B> :Buffers<CR>
 nnoremap <c-H> :Help<CR>
-nnoremap <c-M> :Maps<CR>
-nnoremap <CR> :Lines<CR>
 
 " }}}
 " PLUGIN: Rainbow-Parentheses {{{
@@ -296,11 +314,16 @@ let g:airline_powerline_fonts= 1
 " }}}
 " PLUGIN: vim-latex {{{
 let g:tex_flavor='latex' " To tell vim-latex that we are dealing with LaTeX files
+set conceallevel=1
+let g:tex_conceal='abdmgs' " Check :help g:tex_conceal
 
 " TIP: if you write your \label's as \label{fig:something}, then if you
 " " type in \ref{fig: and press you will automatically cycle through
 " " all the figure labels. Very useful!
 set iskeyword+=:
+
+" '\\ref\{'
+" '\v(\\ref\{(\w+))@<=}' 
 
 " In order to compile latex file using ./compile script
 nnoremap <leader><c-c> :silent !./compile.sh<CR>
@@ -328,4 +351,7 @@ highlight Visual cterm=bold
 " Set the font of the matching searched terms to *bold*
 highlight Search cterm=bold
 highlight IncSearch cterm=bold
+
+" Transparent background!
+hi Normal guibg=NONE ctermbg=NONE
 " }}}

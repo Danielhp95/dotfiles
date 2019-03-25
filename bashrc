@@ -104,6 +104,9 @@ alias Unity='~/Unity-2017.3.0p2/Editor/Unity'
 alias pvr='pipenv run'
 pivs='pipenv shell'
 
+# Mujoco
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/sarios/.mujoco/mjpro150/bin
+
 # enable control-s and control-q
 stty -ixon
 
