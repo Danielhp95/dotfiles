@@ -13,8 +13,8 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " Aesthetic plugins
-Plugin 'vim-airline/vim-airline'        " Status bar
-Plugin 'vim-airline/vim-airline-themes' " Status bar themes
+" Plugin 'vim-airline/vim-airline'        " Status bar
+" Plugin 'vim-airline/vim-airline-themes' " Status bar themes
 Plugin 'chriskempson/base16-vim'        " Base16 colourschemes
 Plugin 'junegunn/goyo.vim'              " Distraction free vim!
 Plugin 'mhinz/vim-startify'             " Fancy start screen
@@ -24,6 +24,7 @@ Plugin 'ehamberg/vim-cute-python'       " Use ligatures for python
 Plugin 'kien/rainbow_parentheses.vim'   " Make parenthesis match colour
 Plugin 'Valloric/YouCompleteMe'         " Syntax completion
 Plugin 'scrooloose/syntastic'           " Syntax check for most languages.
+Plugin 'godlygeek/tabular'              " Formats (tabularizes) according to patterns. Needed for vim-markdown (MUST come before vim-markdown)
 
 " Miscelaneous
 Plugin 'vim-scripts/ZoomWin'            " Toggles fullscreening of current buffer in a window, Mapping: <c-w>o 
@@ -47,7 +48,6 @@ Plugin 'roxma/vim-window-resize-easy'   " Allows to resize windows without typin
 " Language specific 
 " Plugin 'OmniSharp/omnisharp-vim'
 Plugin 'vim-latex/vim-latex'            " For writing latex in vim
-
 call vundle#end()            " required
  
 " Vundle Commands
