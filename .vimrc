@@ -13,14 +13,13 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " Aesthetic plugins
-" Plugin 'vim-airline/vim-airline'        " Status bar
-" Plugin 'vim-airline/vim-airline-themes' " Status bar themes
-Plugin 'chriskempson/base16-vim'        " Base16 colourschemes
+Plugin 'vim-airline/vim-airline'        " Status bar
+Plugin 'vim-airline/vim-airline-themes' " Status bar themes
+" Plugin 'chriskempson/base16-vim'        " WAITING FOR FIX ON MASTER Base16 colourschemes
 Plugin 'junegunn/goyo.vim'              " Distraction free vim!
 Plugin 'mhinz/vim-startify'             " Fancy start screen
-Plugin 'ehamberg/vim-cute-python'       " Use ligatures for python
  
-" Syntax / semantic plugins
+"Syntax / semantic plugins
 Plugin 'kien/rainbow_parentheses.vim'   " Make parenthesis match colour
 Plugin 'Valloric/YouCompleteMe'         " Syntax completion
 Plugin 'scrooloose/syntastic'           " Syntax check for most languages.
@@ -180,11 +179,11 @@ nnoremap <leader>gd :Gdiff<CR>
 " PLUGIN: Base16-vim {{{
 set t_Co=256 " terminal with 256 colours
 
-let base16colorspace=256
-if filereadable(expand("~/.vimrc_background"))
-    let base16colorspace=256
-    source ~/.vimrc_background
-endif
+" let base16colorspace=256
+" if filereadable(expand("~/.vimrc_background"))
+"     let base16colorspace=256
+"     source ~/.vimrc_background
+" endif
 
 " }}}
 " PLUGIN: NERDTree {{{
@@ -315,7 +314,7 @@ let g:airline_powerline_fonts= 1
 " PLUGIN: vim-latex {{{
 let g:tex_flavor='latex' " To tell vim-latex that we are dealing with LaTeX files
 set conceallevel=1
-let g:tex_conceal='abdmgs' " Check :help g:tex_conceal
+let g:tex_conceal='mgs' " Check :help g:tex_conceal
 
 " TIP: if you write your \label's as \label{fig:something}, then if you
 " " type in \ref{fig: and press you will automatically cycle through
@@ -353,5 +352,8 @@ highlight Search cterm=bold
 highlight IncSearch cterm=bold
 
 " Transparent background!
+" TODO: change after base16 issue in master has been fixed
+" The background will still be transparent
+set background=dark
 hi Normal guibg=NONE ctermbg=NONE
 " }}}
