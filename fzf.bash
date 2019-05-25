@@ -12,4 +12,3 @@ fi
 # ------------
 export FZF_COMPLETION_TRIGGER='#'
 source "/home/sarios/.fzf/shell/key-bindings.bash"
-

@@ -4,3 +4,7 @@ Configuration files for
 + inputrc
 + vim
 + zsh
+
+#### Useful info:
+
+Set global `.gitignore`: `git config --global core.excludesfile 'path/to/gitignore'`
