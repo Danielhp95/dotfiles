@@ -27,6 +27,10 @@ function install_oh_my_zsh() {
     curl -L http://install.ohmyz.sh | sh
     # Makes zsh default terminal
     chsh -s $(which zsh)
+
+    # Installing plugins
+    # Zsh-syntax-highlighting
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 }
 
 function install_telegram() {
@@ -138,6 +142,10 @@ function install_neovim() {
 
 function copy_vimrc_file() {
     echo "TODO"
+}
+
+function install_base16_shell() {
+    git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
 }
 
 function install_vim_plugins() {
@@ -258,9 +266,6 @@ function install_all() {
     install_zathura
     install_kitty_terminal
     install_jekyll
-
-    # Change shell to zsh
-    chsh -s /usr/bin/zsh
 }
 
 install_all
