@@ -32,4 +32,3 @@ alias ff='./ProgramFiles/firefox/firefox'
 
 # Remaping caps to escape
 setxkbmap -option caps:escape
-
