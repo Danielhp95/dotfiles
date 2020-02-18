@@ -1,0 +1,54 @@
+icons = "awesome"
+[theme]
+name = "solarized-dark"
+
+[theme.overrides]
+idle_bg = "#06A284"
+idle_fg = "#222222"
+info_bg = "#003229"
+info_fg = "#00EDBE"
+good_bg = "#222222"
+good_fg = "#00FFCC"
+alternating_tint_bg = "#000A00"
+
+
+[[block]]
+block = "music"
+buttons = ["prev", "play", "next"]
+marquee = true
+
+
+[[block]]
+block = "speedtest"
+bytes = true
+interval = 1800
+
+[[block]]
+block = "disk_space"
+path = "/"
+alias = "/"
+info_type = "available"
+unit = "GB"
+interval = 20
+warning = 20.0
+alert = 10.0
+
+[[block]]
+block = "memory"
+display_type = "memory"
+format_mem = "{Mup}%"
+format_swap = "{SUp}%"
+
+[[block]]
+block = "cpu"
+interval = 1
+
+[[block]]
+block = "time"
+interval = 60
+format = "%a %d/%m %R"
+
+[[block]]
+block = "battery"
+driver = "upower"
+format = "{percentage}% {time}"
