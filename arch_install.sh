@@ -57,6 +57,7 @@ function install_i3status_rust() {
 function install_rofi() {
     yay -S rofi
     yay -S rofi-dmenu
+    rofi-file-browser-extended-git
 }
 
 function install_mpv() {
@@ -93,6 +94,10 @@ function install_flake8() {
 
 function install_kitty_terminal() {
    yay -S kitty
+}
+
+function install_fzf() {
+   yay -S fzf-git
 }
 
 function install_silver_searcher() {
@@ -203,6 +208,7 @@ function install_all() {
     install_compton_tryone
 
     # Small utilities
+    install_fzf
     install_bat
     install_exa
     install_feh
