@@ -1,9 +1,10 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+set bell-style none
 # Needed to run bundle commands
 export PATH="$PATH:(ruby -e 'puts Gem.use_dir')/bin"
-export EDITOR='/usr/bin/vim'
+export EDITOR='/usr/bin/nvim'
 export TERMINAL='/usr/bin/kitty'
 export BROWSER='/usr/bin/firefox'
 
@@ -52,7 +53,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git fzf vundle colored-man-pages)
+plugins=(git fzf vundle colored-man-pages zsh-syntax-highlighting)
 
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/"
@@ -83,12 +84,8 @@ alias tmuxx='tmux new-session -A -s playground'
 # York vpn
 alias yorkvpn="/usr/local/pulse/pulsesvc -h webvpn.york.ac.uk -u dh1135 -r york_users_realm"
 
-# Unity utilities
-alias Unity='~/ProgramFiles/Unity/Editor/Unity'
-
 # system utilities
 alias se='sensors'
-
 
 # For kitty terminal
 autoload -Uz compinit
@@ -122,4 +119,4 @@ prompt_end() {
     printf "\n ➜";
 }
 
-
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
