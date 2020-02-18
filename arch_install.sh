@@ -33,6 +33,10 @@ function install_telegram() {
     yay -S telegram-desktop-bin
 }
 
+function install_spotify() {
+    yay -S spotify
+}
+
 function install_xcape() {
     yay -s xcape-git
 }
@@ -51,6 +55,11 @@ function install_exa() {
 
 function install_i3status_rust() {
     yay -S i3status-rust-git
+}
+
+
+function install_dunst() {
+    yay -S dunst
 }
 
 
@@ -120,6 +129,11 @@ function install_gotop() {
 function install_vim() {
     copy_vimrc_file
     install_vim_plugins
+}
+
+function install_neovim() {
+    yay -S neovim-git
+    nvim +PlugInstall +qall
 }
 
 function copy_vimrc_file() {
@@ -209,6 +223,7 @@ function install_all() {
 
     # Small utilities
     install_fzf
+    install_ripgrep
     install_bat
     install_exa
     install_feh
@@ -221,9 +236,11 @@ function install_all() {
     install_omnipause
     install_entr
     install_gotop
+    install_dunst
 
     # VIM
-    install_vim
+    # install_vim
+    install_neovim
 
     # Programming languages
     install_pip
@@ -235,12 +252,12 @@ function install_all() {
     # Personal usage
     install_firefox
     install_telegram
+    install_spotify
     install_mpv
     install_tlp
     install_zathura
-    install_kitty
+    install_kitty_terminal
     install_jekyll
-    install_ripgrep
 
     # Change shell to zsh
     chsh -s /usr/bin/zsh
