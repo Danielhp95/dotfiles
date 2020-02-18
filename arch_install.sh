@@ -146,6 +146,7 @@ function copy_vimrc_file() {
 
 function install_base16_shell() {
     git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
+    sudo pip install base16-shell-preview
 }
 
 function install_vim_plugins() {
