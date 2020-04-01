@@ -137,6 +137,8 @@ function install_vim() {
 
 function install_neovim() {
     yay -S neovim-git
+    # Required for coc.nvim
+    yay -S nodejs
     nvim +PlugInstall +qall
 }
 
