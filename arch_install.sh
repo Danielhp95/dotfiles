@@ -74,7 +74,7 @@ function install_dunst() {
 function install_rofi() {
     yay -S rofi
     yay -S rofi-dmenu
-    rofi-file-browser-extended-git
+    yay -S rofi-file-browser-extended-git
 }
 
 function install_mpv() {
