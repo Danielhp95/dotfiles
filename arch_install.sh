@@ -8,6 +8,10 @@ function install_xclip() {
     yay -S xclip
 }
 
+function install_pandoc() {
+    yay -S pandoc
+}
+
 function install_firefox() {
     yay -S firefox
 }
@@ -138,6 +142,7 @@ function install_vim() {
 function install_neovim() {
     yay -S neovim-git
     # Required for coc.nvim
+    yay -S npm
     yay -S nodejs
     nvim +PlugInstall +qall
 }
@@ -269,6 +274,7 @@ function install_all() {
     install_zathura
     install_kitty_terminal
     install_jekyll
+    install_pandoc
 }
 
 install_all
