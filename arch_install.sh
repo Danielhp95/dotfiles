@@ -79,6 +79,7 @@ function install_rofi() {
 
 function install_mpv() {
     yay -S mpv
+    yay -S youtube-dl
 }
 
 # Power (battery) management
