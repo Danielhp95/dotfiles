@@ -4,6 +4,10 @@ function install_yay() {
     pacman -S yay
 }
 
+function install_redshift() {
+    yay -S redshift
+}
+
 function install_xclip() {
     yay -S xclip
 }
@@ -256,7 +260,6 @@ function install_all() {
     install_dunst
 
     # VIM
-    # install_vim
     install_neovim
 
     # Programming languages
@@ -267,6 +270,7 @@ function install_all() {
     install_latex
 
     # Personal usage
+    install_redshift
     install_firefox
     install_telegram
     install_spotify
