@@ -4,6 +4,12 @@ function install_yay() {
     pacman -S yay
 }
 
+function install_pulseaudio() {
+    yay -S pulseaudio
+    yay -S pulseaudio-bluetooth
+    yay -S pavucontrol
+}
+
 function install_redshift() {
     yay -S redshift
 }
@@ -21,6 +27,9 @@ function install_firefox() {
 }
 
 function install_tmux() {
+    # python-powerline-git is used for putting a fancy tmux prompt
+    yay -S python-powerline-git
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     yay -S tmux
 }
 
@@ -241,6 +250,9 @@ function install_all() {
     # Aesthetics
     install_wpgtk
     install_compton_tryone
+
+    # Sound
+    install_pulseaudio
 
     # Small utilities
     install_fzf
