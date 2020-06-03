@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# For installing everything needed for razer keyboard
+# Follow these instructions:
+# https://github.com/openrazer/openrazer/wiki/Troubleshooting
+# Installing kernel modules (check the dkms) section to know what linux kernel headers we need
+# Openrazer-daemon: run "sudo gpasswd -a $USER plugdev" to add our user to plugdev grou.
+
 function install_yay() {
     pacman -S yay
 }
@@ -29,7 +35,7 @@ function install_firefox() {
 function install_tmux() {
     # python-powerline-git is used for putting a fancy tmux prompt
     yay -S python-powerline-git
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
     yay -S tmux
 }
 
@@ -58,18 +64,16 @@ function install_spotify() {
     yay -S spotify
 }
 
+# Linux utility to configure modifier keys to act as other keys when pressed and released on their own.
 function install_xcape() {
     yay -s xcape-git
-}
-
-function install_wpgtk() {
-    yay -S wpgtk-git
 }
 
 function install_bat() {
     yay -S bat
 }
 
+# Nicer `ls`
 function install_exa() {
     yay -S exa
 }
@@ -78,11 +82,9 @@ function install_i3status_rust() {
     yay -S i3status-rust-git
 }
 
-
 function install_dunst() {
     yay -S dunst
 }
-
 
 function install_rofi() {
     yay -S rofi
@@ -98,6 +100,8 @@ function install_mpv() {
 # Power (battery) management
 function install_tlp() {
     yay -S tlp
+    systemctl start tlp.service
+    systemctl enable tlp.service
 }
 
 function install_zathura() {
@@ -143,14 +147,10 @@ function install_cmake() {
    yay -S cmake
 }
 
-function install_gotop() {
+function install_gotop_and_bashtop() {
     # System monitoring tool
     yay -S gotop
-}
-
-function install_vim() {
-    copy_vimrc_file
-    install_vim_plugins
+    yay -S bashtop
 }
 
 function install_neovim() {
@@ -158,20 +158,13 @@ function install_neovim() {
     # Required for coc.nvim
     yay -S npm
     yay -S nodejs
+    # Install everything!
     nvim +PlugInstall +qall
-}
-
-function copy_vimrc_file() {
-    echo "TODO"
 }
 
 function install_base16_shell() {
     git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
     sudo pip install base16-shell-preview
-}
-
-function install_vim_plugins() {
-    vim +PluginUpdate +qall
 }
 
 function install_i3_alternating_layouts() {
@@ -185,7 +178,6 @@ function install_coc_vim_python() {
     pip install python-language-server
     pip install 'python-language-server[rope]'
 }
-
 
 #########
 # Fonts #
@@ -248,7 +240,6 @@ function install_all() {
     install_font_awesome
 
     # Aesthetics
-    install_wpgtk
     install_compton_tryone
 
     # Sound
@@ -268,7 +259,7 @@ function install_all() {
     install_maim
     install_omnipause
     install_entr
-    install_gotop
+    install_gotop_and_bashtop
     install_dunst
 
     # VIM
