@@ -32,7 +32,6 @@ ln -sf ~/dotfiles/i3 ~/.config/
 
 ln -sf ~/dotfiles/compton/compton.conf ~/.config/compton.conf
 
-
 #rm ~/.config/zathura/zathura
 #rm ~/.config/compton/compton
 #rm ~/.config/kitty/kitty
