@@ -11,12 +11,10 @@ alias day='base16_google-light'
 alias night='base16_3024'
 alias bright='base16_bright'
 alias normal='base16_solarized-dark'
+alias normal2='base16_railcasts'
 
 # York vpn and YARCC aliases
 alias yorkvpn="/usr/local/pulse/pulsesvc -h webvpn.york.ac.uk -u dh1135 -r york_users_realm"
 
 # system utilities
 alias se='sensors'
-
-# Remaping caps to escape
-setxkbmap -option caps:escape

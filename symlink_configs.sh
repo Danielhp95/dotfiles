@@ -17,10 +17,13 @@ if [ -d ~/.config/dunst ]; then
   rm -rf ~/.config/dunst
 fi
 if [ -d ~/.config/tmux ]; then
-  rm -rf ~/config/tmux
+  rm -rf ~/.config/tmux
 fi
 if [ -d ~/.config/i3 ]; then
   rm -rf ~/.config/i3
+fi
+if [ -d ~/.config/nvim ]; then
+  rm -rf ~/.config/nvim
 fi
 
 ln -sf ~/dotfiles/zathura ~/.config/
@@ -29,8 +32,11 @@ ln -sf ~/dotfiles/rofi ~/.config/
 ln -sf ~/dotfiles/dunst ~/.config/
 ln -sf ~/dotfiles/tmux ~/.config/
 ln -sf ~/dotfiles/i3 ~/.config/
+ln -sf ~/dotfiles/nvim ~/.config/
 
 ln -sf ~/dotfiles/compton/compton.conf ~/.config/compton.conf
+
+ln -sf ~/dotfiles/zsh/zshrc ~/.zshrc
 
 #rm ~/.config/zathura/zathura
 #rm ~/.config/compton/compton
