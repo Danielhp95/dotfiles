@@ -28,6 +28,7 @@ export FZF_ALT_D_OPTS='--preview="exa {} -l --color=always"'
 
 FZF_TAB_COMMAND=(
     fzf
+    --height=40%
     --ansi   # Enable ANSI color support, necessary for showing groups
     --expect='$continuous_trigger' # For continuous completion
     '--color=hl:$(( $#headers == 0 ? 108 : 255 ))'
