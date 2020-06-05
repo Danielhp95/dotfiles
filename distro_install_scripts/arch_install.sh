@@ -43,6 +43,10 @@ function install_ripgrep() {
     yay -S ripgrep
 }
 
+function install_fd() {
+    yay -S fd
+}
+
 function install_oh_my_zsh() {
     # Install zsh
     yay -S zsh
@@ -158,8 +162,6 @@ function install_neovim() {
     # Required for coc.nvim
     yay -S npm
     yay -S nodejs
-    # Install everything!
-    nvim +PlugInstall +qall
 }
 
 function install_base16_shell() {
@@ -241,6 +243,7 @@ function install_all() {
 
     # Aesthetics
     install_compton_tryone
+    install_base16_shell
 
     # Sound
     install_pulseaudio
@@ -248,6 +251,7 @@ function install_all() {
     # Small utilities
     install_fzf
     install_ripgrep
+    install_fd
     install_bat
     install_exa
     install_feh
