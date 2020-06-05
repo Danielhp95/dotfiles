@@ -34,9 +34,17 @@ Plug 'junegunn/limelight.vim'         " Dim paragraphs above and below current p
 Plug 'mhinz/vim-startify'             " Fancy start screen
 Plug 'kien/rainbow_parentheses.vim'   " Rainbow parenthesis!
 Plug 'ryanoasis/vim-devicons'         " Adds nice looking devicons to plugins
- 
-"Syntax / semantic plugins
+Plug 'ehamberg/vim-cute-python'       " Concelamnet in Python
+
+
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" TODO:
+" Track the engine.
+Plug 'SirVer/ultisnips'
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
+
 
 " Miscelaneous
 Plug 'janko/vim-test'                         " Utilities to run tests
@@ -55,14 +63,17 @@ Plug 'mbbill/undotree'                        " Undo tree visualizer
 Plug 'terryma/vim-multiple-cursors'           " Sublime text like multiple cursor feature 
 Plug 'roxma/vim-window-resize-easy'           " Allows to resize windows without typing <c-w> everytime
 Plug 'jpalardy/vim-slime'  " To send code to Python interpreter or other REPL tool (Read Evaluate Print Loop)
-Plug 'liuchengxu/vim-clap'  " Floating windows whilst searching for stuff
 
+Plug 'vimwiki/vimwiki'    " The one and only
+Plug 'mattn/calendar-vim'  " Calendar inside of vim
 
 " Language specific 
 " Plug 'OmniSharp/omnisharp-vim'
 Plug 'vim-latex/vim-latex', {'for' : 'tex'} " For writing latex in vim
-Plug 'fatih/vim-go', {'for' : 'go'}         " Go plugin!
-Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') } " Markdown live previwer
+" Plug 'fatih/vim-go', {'for' : 'go'}         " Go plugin!
+" Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') } " Markdown live previwer
+Plug 'gabrielelana/vim-markdown', {'for' : 'wiki'}                      " Markdown folding, code syntax highlighter
+Plug 'python-rope/ropevim'      " Refactoring library for python
 call plug#end()
 " }}}
 " Miscelaneous {{{
@@ -158,6 +169,24 @@ map <leader>sa zg
 " Show Suggestions
 map <leader>sc z=
 " }}}
+" Language Specific: Markdown {{{
+" fold region for headings
+syn region mkdHeaderFold
+    \ start="^\s*\z(#\+\)"
+    \ skip="^\s*\z1#\+"
+    \ end="^\(\s*#\)\@="
+    \ fold contains=TOP
+
+" fold region for lists
+syn region mkdListFold
+    \ start="^\z(\s*\)\*\z(\s*\)"
+    \ skip="^\z1 \z2\s*[^#]"
+    \ end="^\(.\)\@="
+    \ fold contains=TOP
+
+syn sync fromstart
+setlocal foldmethod=syntax
+" }}}
 " Language Specific: Python {{{
 " Set debugger trace
 
@@ -222,76 +251,10 @@ let NERDTreeMinimalUI = 1
 let g:webdevicons_conceal_nerdtree_brackets = 1
 let g:webdevicons_enable_nerdtree = 1
 " }}}
-"" PLUGIN: Syntastic {{{
-""
-"highlight link SyntasticError Error
-" 
-"" let g:syntastic_check_on_open = 1 " Check syntax on open
-"" let g:syntastic_always_populate_loc_list = 1 " Errors will be populated in location list immediately after being found
-"
-"" The error window will automatically open when errors are detected, and automatically close when none are detected
-"" let g:syntastic_auto_loc_list = 1 
-" 
-"" PYTHON
-"let g:syntastic_python_checkers=["flake8"]
-"" Ignore the following errors: 'white space before operator'(E221), 
-"" 'Line too long'(E501)
-"" 'Missing whitespace around operator'(E226){{{}}}
-"" 'At least two spaces between inline comments'(E261)
-"" 'Multiple statements in one line'(E701)
-"" 'Module import not at the top of file'(E402)
-"" 'Do not assign lambda to a variable, use def instead' (E731)
-"" 'Comparison against False literal with stupid syntax'(E712)
-"" 'Multiple spaces after ':' '(E241)
-"" 'Redifinition of unused variable' (F811) Messes up with pytest.fixtures
-"let g:syntastic_python_flake8_args="--ignore=E221,E226,E501,E261,E701,E402,E731,E712,E241,F811"
-"let g:syntastic_python_python_exec = 'python3'
-" 
-"" LATEX
-"let g:syntastic_tex_checkers = ['chktex']
-"
-"" JAVA
-"" Disable syntastic for java by fooling syntastic to thinking that javac has
-"" been loaded
-"" let g:loaded_syntastic_java_javac_checker = 1
-"
-"" Go to next/previous error
-"nnoremap <leader>e :call LocationNext()<cr> 
-"nnoremap <leader>E :call LocationPrevious()<cr>
-"
-"" Wrap both ways when searching for next and previous errors
-"function! LocationNext()
-"    try
-"        lnext
-"    catch /^Vim\%((\a\+)\)\=:E553/
-"        lfirst
-"    endtry
-"endfunction
-"
-"function! LocationPrevious()
-"    try
-"        lprev
-"    catch /^Vim\%((\a\+)\)\=:E553/
-"        llast
-"    endtry
-"endfunction
-"
-"" Toggle error location list
-"nnoremap <leader>se :call ShowErrors()<cr>
-"
-"function! ShowErrors()
-"    let old_last_winnr = winnr('$')
-"    lclose
-"    if old_last_winnr == winnr('$')
-"        " Nothing was closed, open syntastic error location panel
-"        Errors
-"    endif
-"endfunction
-
-" }}}
 " PLUGIN: COC {{{
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> <leader><leader>c :'<,'>CocAction<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -300,15 +263,51 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+
+" Scrolling Floating Coc windows via arrowkeys (up and down)
+function! FloatScroll(forward) abort
+  let float = coc#util#get_float()
+  if !float | return '' | endif
+  let buf = nvim_win_get_buf(float)
+  let buf_height = nvim_buf_line_count(buf)
+  let win_height = nvim_win_get_height(float)
+  if buf_height < win_height | return '' | endif
+  let pos = nvim_win_get_cursor(float)
+  if a:forward
+    if pos[0] == 1
+      let pos[0] += 3 * win_height / 4
+    elseif pos[0] + win_height / 2 + 1 < buf_height
+      let pos[0] += win_height / 2 + 1
+    else
+      let pos[0] = buf_height
+    endif
+  else
+    if pos[0] == buf_height
+      let pos[0] -= 3 * win_height / 4
+    elseif pos[0] - win_height / 2 + 1  > 1
+      let pos[0] -= win_height / 2 + 1
+    else
+      let pos[0] = 1
+    endif
+  endif
+  call nvim_win_set_cursor(float, pos)
+  return ''
+endfunction
+
+inoremap <silent><expr> <down> coc#util#has_float() ? FloatScroll(1) : "\<down>"
+inoremap <silent><expr>  <up>  coc#util#has_float() ? FloatScroll(0) :  "\<up>"
+
 " }}}
 " PLUGIN: fzf-vim {{{
 
 nnoremap <c-L> :BLines<CR>
 nnoremap <c-P> :Files<CR>
 nnoremap <leader><c-P> :Files ~<CR>
+nnoremap <leader><c-w> :Files ~/vimwiki<CR>
 nnoremap <c-F> :Ag<CR>
 nnoremap <c-B> :Buffers<CR>
 nnoremap <c-H> :Help<CR>
+nnoremap <leader>co :GCheckout<CR>
 
 let g:fzf_files_options = "--preview 'bat --plain --color \"always\" {}'"
 
@@ -363,6 +362,24 @@ function! GetRegisters()
   redir END
   return split(cout, "\n")[1:11]
 endfunction
+
+function! s:open_branch_fzf(line)
+  let l:parser = split(a:line)
+  let l:branch = l:parser[0]
+  if l:branch ==? '*'
+    let l:branch = l:parser[1]
+  endif
+  execute '!git checkout ' . l:branch
+endfunction
+
+command! -bang -nargs=0 GCheckout
+  \ call fzf#vim#grep(
+  \   'git branch -v', 0,
+  \   {
+  \     'sink': function('s:open_branch_fzf')
+  \   },
+  \   <bang>0
+  \ )
 
 
 " }}}
@@ -453,6 +470,20 @@ let g:instant_markdown_autostart = 0
 nnoremap t<c-f> :TestFile<cr>
 nnoremap t<c-n> :TestNearest<cr>
 " }}}}
+" {{{ PLUGIN: Vimwiki
+
+nnoremap <leader><leader>p :!pandoc -t beamer ~/vimwiki/presentations/header % --from=markdown --output=%.pdf
+
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': '.wiki'}]
+" }}}
+" PLUGIN: Calendar {{{
+
+" This is set so that it plays nicely with vimwiki
+let g:calendar_options = 'nornu'
+let g:calendar_monday = 1
+
+" }}}
 " MISCELANEOUS {{{
 set t_Co=256 " terminal with 256 colours
 
@@ -481,3 +512,15 @@ highlight PmenuSel            ctermfg=0     ctermbg=6 cterm=bold
 
 hi Normal guibg=NONE ctermbg=None
 " }}}
+augroup active_relative_number
+  au!
+  au BufEnter * :setlocal number
+  au WinEnter * :setlocal number
+  au BufLeave * :setlocal nonumber
+  au WinLeave * :setlocal nonumber
+
+  au BufEnter * :setlocal signcolumn=yes
+  au WinEnter * :setlocal signcolumn=yes
+  au BufLeave * :setlocal signcolumn=no
+  au WinLeave * :setlocal signcolumn=no
+augroup END

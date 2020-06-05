@@ -1,3 +1,13 @@
+# Neovim
+alias v="nvim"
+alias vi="nvim"
+alias vim="nvim"
+
+# Replace 'ls' with 'exa'
+alias ls="exa"
+alias ll="exa -lF"
+alias la="exa -alF"
+
 # Xclip aliases
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
@@ -18,3 +28,6 @@ alias yorkvpn="/usr/local/pulse/pulsesvc -h webvpn.york.ac.uk -u dh1135 -r york_
 
 # system utilities
 alias se='sensors'
+
+# To access dotfiles. Brings all files in ~/dotfiles into fzf, and opens selelection in neovim
+alias ds='f=$(fd --type f  . ~/dotfiles | fzf --preview="bat {} --theme="base16" --color=always --style=\"numbers\"") && nvim $f'

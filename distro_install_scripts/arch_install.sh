@@ -54,10 +54,13 @@ function install_oh_my_zsh() {
     curl -L http://install.ohmyz.sh | sh
     # Makes zsh default terminal
     chsh -s $(which zsh)
+}
 
-    # Installing plugins
+function install_oh_my_zsh_plugins() {
     # Zsh-syntax-highlighting
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    # fzf-tab
+    git clone https://github.com/Aloxaf/fzf-tab ~ZSH_CUSTOM/plugins/fzf-tab
 }
 
 function install_telegram() {
@@ -233,6 +236,7 @@ function install_jekyll() {
 function install_all() {
     install_yay
     install_oh_my_zsh
+    install_oh_my_zsh_plugins
     install_rofi
     install_tmux
     install_i3status_rust

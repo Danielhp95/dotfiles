@@ -45,9 +45,11 @@ plugins=(
     git
     colored-man-pages
     zsh-syntax-highlighting
+    fzf-tab
 )
+
+ZSH=~/.oh-my-zsh
 
 source $ZSH/oh-my-zsh.sh
 source ~/dotfiles/zsh/aliases
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source ~/dotfiles/fzf/fzf.zsh

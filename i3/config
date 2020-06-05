@@ -312,24 +312,45 @@ exec_always --no-startup-id fix_xcursor
 # to:
 # background $term_background
 # Same logic applied to everything else.
-set_from_resource $term_background background
-set_from_resource $term_foreground foreground
-set_from_resource $term_color0     color0
-set_from_resource $term_color1     color1
-set_from_resource $term_color2     color2
-set_from_resource $term_color3     color3
-set_from_resource $term_color4     color4
-set_from_resource $term_color5     color5
-set_from_resource $term_color6     color6
-set_from_resource $term_color7     color7
-set_from_resource $term_color8     color8
-set_from_resource $term_color9     color9
-set_from_resource $term_color10    color10
-set_from_resource $term_color11    color11
-set_from_resource $term_color12    color12
-set_from_resource $term_color13    color13
-set_from_resource $term_color14    color14
-set_from_resource $term_color15    color15
+#
+
+
+set $term_color0  #2b2b2b
+set $term_color1  #272935
+set $term_color2  #3a4055
+set $term_color3  #5a647e
+set $term_color4  #d4cfc9
+set $term_color5  #e6e1dc
+set $term_color6  #f4f1ed
+set $term_color7  #f9f7f3
+set $term_color8  #da4939
+set $term_color9  #cc7833
+set $term_color10 #ffc66d
+set $term_color11 #a5c261
+set $term_color12 #519f50
+set $term_color13 #6d9cbe
+set $term_color14 #b6b3eb
+set $term_color15 #bc9458
+
+# Lest it breaks
+# Lest it breaksset_from_resource $term_background background
+# Lest it breaksset_from_resource $term_foreground foreground
+# Lest it breaksset_from_resource $term_color0     color0
+# Lest it breaksset_from_resource $term_color1     color1
+# Lest it breaksset_from_resource $term_color2     color2
+# Lest it breaksset_from_resource $term_color3     color3
+# Lest it breaksset_from_resource $term_color4     color4
+# Lest it breaksset_from_resource $term_color5     color5
+# Lest it breaksset_from_resource $term_color6     color6
+# Lest it breaksset_from_resource $term_color7     color7
+# Lest it breaksset_from_resource $term_color8     color8
+# Lest it breaksset_from_resource $term_color9     color9
+# Lest it breaksset_from_resource $term_color10    color10
+# Lest it breaksset_from_resource $term_color11    color11
+# Lest it breaksset_from_resource $term_color12    color12
+# Lest it breaksset_from_resource $term_color13    color13
+# Lest it breaksset_from_resource $term_color14    color14
+# Lest it breaksset_from_resource $term_color15    color15
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 # bar {

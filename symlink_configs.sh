@@ -37,6 +37,7 @@ ln -sf ~/dotfiles/nvim ~/.config/
 ln -sf ~/dotfiles/compton/compton.conf ~/.config/compton.conf
 
 ln -sf ~/dotfiles/zsh/zshrc ~/.zshrc
+ln -sf ~/dotfiles/zsh/fzf.zsh ~/.fzf.zsh
 
 #rm ~/.config/zathura/zathura
 #rm ~/.config/compton/compton
