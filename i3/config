@@ -20,7 +20,7 @@ exec --no-startup-id "tmux start-server"
 exec --no-startup-id ".config/i3/scripts/wallchange-hangmoon.sh"
 
 # WHY IS THIS NOT WORKING Use alternating layout splits (vertical / horizontal / vertical...)
-exec --no-startup-id "~/.config/i3/scripts/i3-alternating-layouts/alternating-layout.py"
+exec --no-startup-id "python ~/.config/i3/scripts/i3-alternating-layouts/alternating-layout.py"
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
 new_window pixel 3
@@ -51,6 +51,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec --no-startup-id "rofi -show drun -modi drun,run"
 bindsym $mod+t exec --no-startup-id "rofi -show window -kb-row-down 'Down,Alt+Tab' -kb-accept-entry 'Return,!Alt_L,!Alt+Tab'"
 bindsym $mod+Shift+o exec --no-startup-id "rofi -show file-browser"
+bindsym $mod+Shift+x exec --no-startup-id "bash ~/.config/i3/scripts/choose_screenlayout.sh"
 
 
 ################################################################################################
