@@ -10,6 +10,11 @@ function install_yay() {
     pacman -S yay
 }
 
+function install_bluetooth_related_packages() {
+    yay -S bluez
+    yay -S bluez-utils
+}
+
 function install_pulseaudio() {
     yay -S pulseaudio
     yay -S pulseaudio-bluetooth
@@ -240,6 +245,7 @@ function install_all() {
     install_rofi
     install_tmux
     install_i3status_rust
+    install_bluetooth_related_packages
 
     # Fonts
     install_fira_code_font
