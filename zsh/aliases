@@ -25,6 +25,9 @@ alias normal2='base16_railcasts'
 
 # York vpn and YARCC aliases
 alias yorkvpn="/usr/local/pulse/pulsesvc -h webvpn.york.ac.uk -u dh1135 -r york_users_realm"
+# INFO about openconnect https://footprints.york.ac.uk/MRcgi/MRTicketPage.pl?MR=407983&PROJECTID=1
+# When prompted for "password#2", use "push"
+alias openconnectyorkvpn="openconnect --protocol=nc webvpn.york.ac.uk/split --user=dh1135"
 
 # system utilities
 alias se='sensors'
