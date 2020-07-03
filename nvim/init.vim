@@ -36,6 +36,7 @@ Plug 'kien/rainbow_parentheses.vim'   " Rainbow parenthesis!
 Plug 'ryanoasis/vim-devicons'         " Adds nice looking devicons to plugins
 Plug 'ehamberg/vim-cute-python'       " Concelamnet in Python
 
+Plug 'junegunn/vim-peekaboo'    " Shows @ and \" contents on a separate window
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -132,6 +133,9 @@ set foldmethod=marker " check :help foldmethod string "{{{,}}}" will be used for
 set foldlevel=0 " Folds closed by default
 " }}}
 " Search {{{
+" substitution commands (i.e :%s/pattern/replacement) effects are shown
+" incrementally and a split window appears showing all changes
+set inccommand=split
 set incsearch " When searching, go directly to matches
 set hlsearch  " Highlight matches
 
@@ -491,6 +495,11 @@ set t_Co=256 " terminal with 256 colours
 if filereadable(expand("~/.config/nvim/FormatParagraph.vim"))
  source ~/.config/nvim/FormatParagraph.vim
 endif
+
+augroup LuaHighlight
+  autocmd!
+  autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
+augroup END
 
 nnoremap <leader>m :call FormatParagraph()<CR>
 " }}}
