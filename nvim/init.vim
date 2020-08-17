@@ -1,7 +1,6 @@
 " --------- WELCOME TO MY NEOVIM init.vim! --------- "
 " Runtimepath configuration {{{
-set runtimepath+=~/.fzf/bin/fzf " same for fzf
-set runtimepath+=/usr/local/lib/python3.6/dist-packages/powerline/bindings/vim/ " Allowing powerline in vim
+set runtimepath+=~/.fzf/bin/fzf
 " }}}
 " Vim-Plug PLUGINS {{{
 
@@ -30,22 +29,16 @@ Plug 'vim-airline/vim-airline'        " Status bar
 Plug 'vim-airline/vim-airline-themes' " Status bar themes
 Plug 'Soares/base16.nvim'
 Plug 'junegunn/goyo.vim'              " Distraction free vim!
-Plug 'junegunn/limelight.vim'         " Dim paragraphs above and below current paragraph
 Plug 'mhinz/vim-startify'             " Fancy start screen
 Plug 'kien/rainbow_parentheses.vim'   " Rainbow parenthesis!
 Plug 'ryanoasis/vim-devicons'         " Adds nice looking devicons to plugins
 Plug 'ehamberg/vim-cute-python'       " Concelamnet in Python
-
-Plug 'junegunn/vim-peekaboo'    " Shows @ and \" contents on a separate window
-
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " TODO:
 " Track the engine.
 Plug 'SirVer/ultisnips'
 " Snippets are separated from the engine. Add this if you want them:
 Plug 'honza/vim-snippets'
-
 
 " Miscelaneous
 Plug 'janko/vim-test'                         " Utilities to run tests
@@ -58,15 +51,15 @@ Plug 'junegunn/fzf'                           " fuzzy search finder
 Plug 'junegunn/fzf.vim'                       " To use fzf in vim
 Plug 'liuchengxu/vista.vim'                   " Tagbar to see methods / variables
 Plug 'scrooloose/nerdtree'                    " Tree directory navigation extension.
+
 Plug 'vim-scripts/SearchComplete'             " Tab completition inside search '/'
 Plug 'dbeniamine/cheat.sh-vim'                " Uses the wonderful cheat.sh web thingy.
 Plug 'mbbill/undotree'                        " Undo tree visualizer
 Plug 'terryma/vim-multiple-cursors'           " Sublime text like multiple cursor feature 
 Plug 'roxma/vim-window-resize-easy'           " Allows to resize windows without typing <c-w> everytime
-Plug 'jpalardy/vim-slime'  " To send code to Python interpreter or other REPL tool (Read Evaluate Print Loop)
+Plug 'jpalardy/vim-slime'                     " To send code to Python interpreter or other REPL tool (Read Evaluate Print Loop)
 
 Plug 'vimwiki/vimwiki'    " The one and only
-Plug 'mattn/calendar-vim'  " Calendar inside of vim
 
 " Language specific 
 " Plug 'OmniSharp/omnisharp-vim'
@@ -306,7 +299,7 @@ inoremap <silent><expr>  <up>  coc#util#has_float() ? FloatScroll(0) :  "\<up>"
 
 nnoremap <c-L> :BLines<CR>
 nnoremap <c-P> :Files<CR>
-nnoremap <leader><c-P> :Files ~<CR>
+nnoremap <leader><c-P> :Files ~/Projects<CR>
 nnoremap <leader><c-w> :Files ~/vimwiki<CR>
 nnoremap <c-F> :Ag<CR>
 nnoremap <c-B> :Buffers<CR>
@@ -481,13 +474,6 @@ nnoremap <leader><leader>p :!pandoc -t beamer ~/vimwiki/presentations/header % -
 let g:vimwiki_list = [{'path': '~/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.wiki'}]
 " }}}
-" PLUGIN: Calendar {{{
-
-" This is set so that it plays nicely with vimwiki
-let g:calendar_options = 'nornu'
-let g:calendar_monday = 1
-
-" }}}
 " MISCELANEOUS {{{
 set t_Co=256 " terminal with 256 colours
 
@@ -495,11 +481,6 @@ set t_Co=256 " terminal with 256 colours
 if filereadable(expand("~/.config/nvim/FormatParagraph.vim"))
  source ~/.config/nvim/FormatParagraph.vim
 endif
-
-augroup LuaHighlight
-  autocmd!
-  autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
-augroup END
 
 nnoremap <leader>m :call FormatParagraph()<CR>
 " }}}
@@ -521,15 +502,3 @@ highlight PmenuSel            ctermfg=0     ctermbg=6 cterm=bold
 
 hi Normal guibg=NONE ctermbg=None
 " }}}
-augroup active_relative_number
-  au!
-  au BufEnter * :setlocal number
-  au WinEnter * :setlocal number
-  au BufLeave * :setlocal nonumber
-  au WinLeave * :setlocal nonumber
-
-  au BufEnter * :setlocal signcolumn=yes
-  au WinEnter * :setlocal signcolumn=yes
-  au BufLeave * :setlocal signcolumn=no
-  au WinLeave * :setlocal signcolumn=no
-augroup END
