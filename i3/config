@@ -59,6 +59,9 @@ bindsym $mod+Shift+d exec --no-startup-id "bash ~/.config/i3/scripts/choose_blue
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
 ################################################################################################
 
+bindsym F2 exec --no-startup-id amixer -D pulse sset Master 2%-
+bindsym F3 exec --no-startup-id amixer -D pulse sset Master 2%+
+
 exec --no-startup-id volumeicon
 bindsym $mod+Ctrl+m exec pavucontrol
 exec --no-startup-id pulseaudio
@@ -118,8 +121,8 @@ bindsym $mod+b workspace back_and_forth
 bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 
 # split orientation
-bindsym $mod+h split h;exec notify-send 'tile horizontally'
-bindsym $mod+v split v;exec notify-send 'tile vertically'
+bindsym $mod+h split h
+bindsym $mod+v split v
 bindsym $mod+q split toggle
 
 # Move workspace to other monitors
