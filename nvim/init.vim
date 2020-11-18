@@ -47,27 +47,31 @@ Plug 'rbong/vim-flog'                         " Git log inside vim
 Plug 'airblade/vim-gitgutter'                 " Shows what lines have been changed / added / deleted in git
 Plug 'tpope/vim-fugitive'                     " Git integration with vim
 Plug 'tpope/vim-obsession'                    " Vim session manager
-Plug 'junegunn/fzf'                           " fuzzy search finder 
+Plug 'junegunn/fzf'                           " fuzzy search finder
 Plug 'junegunn/fzf.vim'                       " To use fzf in vim
 Plug 'liuchengxu/vista.vim'                   " Tagbar to see methods / variables
 Plug 'scrooloose/nerdtree'                    " Tree directory navigation extension.
 
+Plug 'francoiscabrol/ranger.vim'              " Directory navigation
+Plug 'rbgrouleff/bclose.vim'                  " Requirement for ranger.vim
+
 Plug 'vim-scripts/SearchComplete'             " Tab completition inside search '/'
 Plug 'dbeniamine/cheat.sh-vim'                " Uses the wonderful cheat.sh web thingy.
 Plug 'mbbill/undotree'                        " Undo tree visualizer
-Plug 'terryma/vim-multiple-cursors'           " Sublime text like multiple cursor feature 
+Plug 'terryma/vim-multiple-cursors'           " Sublime text like multiple cursor feature
 Plug 'roxma/vim-window-resize-easy'           " Allows to resize windows without typing <c-w> everytime
 Plug 'jpalardy/vim-slime'                     " To send code to Python interpreter or other REPL tool (Read Evaluate Print Loop)
 
 Plug 'vimwiki/vimwiki'    " The one and only
 
-" Language specific 
+" Language specific
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'OmniSharp/omnisharp-vim'
-Plug 'vim-latex/vim-latex', {'for' : 'tex'} " For writing latex in vim
-" Plug 'fatih/vim-go', {'for' : 'go'}         " Go plugin!
-" Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') } " Markdown live previwer
-Plug 'gabrielelana/vim-markdown', {'for' : 'wiki'}                      " Markdown folding, code syntax highlighter
-Plug 'python-rope/ropevim'      " Refactoring library for python
+" Plug 'vim-latex/vim-latex', {'for' : 'tex'}             " For writing latex in vim
+Plug 'lervag/vimtex'                                    " For writting latex in vim (used by coc)
+Plug 'gabrielelana/vim-markdown', {'for' : 'wiki'}      " Markdown folding, code syntax highlighter
+Plug 'python-rope/ropevim'                              " Refactoring library for python
+Plug 'sheerun/vim-polyglot'                             " A collection of language packs for vim
 call plug#end()
 " }}}
 " Miscelaneous {{{
@@ -78,18 +82,18 @@ filetype plugin on " Filetype is detected and plugins that act on this filetype 
 " Use <Space> as leader key
 let mapleader = " "
 
-" Yank operations will put their output inside register '+'. 
+" Yank operations will put their output inside register '+'.
 " But not other oprations like delete or change. Those will use register '*'
-set clipboard=unnamedplus 
+set clipboard=unnamedplus
 
 " Allows backspace to delete anything. Otherwise it would not be possible to delete already written text
-set backspace=indent,eol,start 
- 
+set backspace=indent,eol,start
+
 " Open vimrc in a new tab
 nnoremap <leader>ev :tabe ~/.config/nvim/init.vim<CR>
 nnoremap <leader>r :source ~/.config/nvim/init.vim<CR>
- 
-" Use Ctrl+s to save file. 
+
+" Use Ctrl+s to save file.
 " NOTE: in a terminal ctr-s stops input intake and ctr-q continues it. add 'stty -ixon' to allow for this input sequences.
 nnoremap <C-S> :w<CR>
 vnoremap <C-S> <Esc>:w<CR>
@@ -147,9 +151,9 @@ nnoremap <leader>tw :set wrap!<cr>
 " " }}}
 " Movement {{{
 " Tab movement
-nnoremap H :tabprevious<cr> 
+nnoremap H :tabprevious<cr>
 nnoremap L :tabnext<cr>
- 
+
 " Scroll keeping the cursor in the same position in the screen
 nnoremap <C-k> <C-y>k
 nnoremap <c-j> j<c-e>
@@ -199,7 +203,7 @@ autocmd FileType go nmap <leader>r  <Plug>(go-run)
 
 " }}}
 " PLUGIN: vim-fugitive {{{
- 
+
 " Most copied from
 " https://www.reddit.com/r/vim/comments/21f4gm/best_workflow_when_using_fugitive/
 " set diffopt+=vertical
@@ -251,7 +255,7 @@ let g:webdevicons_enable_nerdtree = 1
 " PLUGIN: COC {{{
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-nnoremap <silent> <leader><leader>c :'<,'>CocAction<CR>
+xnoremap <leader>cc :CocAction<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -291,8 +295,8 @@ function! FloatScroll(forward) abort
   return ''
 endfunction
 
-inoremap <silent><expr> <down> coc#util#has_float() ? FloatScroll(1) : "\<down>"
-inoremap <silent><expr>  <up>  coc#util#has_float() ? FloatScroll(0) :  "\<up>"
+"inoremap <silent><expr> <down> coc#util#has_float() ? FloatScroll(1) : "\<down>"
+"inoremap <silent><expr>  <up>  coc#util#has_float() ? FloatScroll(0) :  "\<up>"
 
 " }}}
 " PLUGIN: fzf-vim {{{
@@ -385,7 +389,7 @@ command! -bang -nargs=0 GCheckout
 " Syntax is an event that happens after the filetype of a file has been inferred
 " Effectively keeps RainbowParentheses always on
 autocmd VimEnter * RainbowParenthesesToggle " Calls RainbowParenthesesToggle after entering vim. Activating RainbowParentheses
-autocmd Syntax * RainbowParenthesesLoadRound  
+autocmd Syntax * RainbowParenthesesLoadRound
 autocmd Syntax * RainbowParenthesesLoadSquare
 autocmd Syntax * RainbowParenthesesLoadBraces
 " }}}
@@ -395,7 +399,7 @@ let g:airline_theme='simple'
 
 " Enables vim-airline for tabs
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts= 1
+"let g:airline_powerline_fonts= 1
 " }}}
 " PLUGIN: vim-latex {{{
 let g:tex_flavor='latex' " To tell vim-latex that we are dealing with LaTeX files
@@ -408,7 +412,7 @@ let g:tex_conceal='mgs' " Check :help g:tex_conceal
 set iskeyword+=:
 
 " '\\ref\{'
-" '\v(\\ref\{(\w+))@<=}' 
+" '\v(\\ref\{(\w+))@<=}'
 
 " In order to compile latex file using ./compile script
 nnoremap <leader><c-c> :silent !./compile.sh<CR>
@@ -446,7 +450,7 @@ let g:vista_sidebar_width = 40  " Default of 30 was too narrow
 " By default vista.vim never run if you don't call it explicitly.
 "
 " If you want to show the nearest function in your statusline automatically,
-" you can add the following line to your vimrc 
+" you can add the following line to your vimrc
 " set statusline+=%{NearestMethodOrFunction()}
 " autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 " function! NearestMethodOrFunction() abort
@@ -467,9 +471,10 @@ let g:instant_markdown_autostart = 0
 nnoremap t<c-f> :TestFile<cr>
 nnoremap t<c-n> :TestNearest<cr>
 " }}}}
-" {{{ PLUGIN: Vimwiki
+" {{{ PLUGIN: vimwiki
 
-nnoremap <leader><leader>p :!pandoc -t beamer ~/vimwiki/presentations/header % --from=markdown --output=%.pdf
+nnoremap <c-w><c-w> :VimwikiTabIndex<cr>
+noremap <leader><leader>p :!pandoc -t beamer ~/vimwiki/presentations/header % --from=markdown --output=%.pdf
 
 let g:vimwiki_list = [{'path': '~/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.wiki'}]
@@ -499,6 +504,9 @@ highlight PmenuThumb          ctermbg=7
 highlight PmenuSBar           ctermbg=8
 " ctermbg = 11 also works really well for PmenuSel
 highlight PmenuSel            ctermfg=0     ctermbg=6 cterm=bold
+
+" Remove background colour for gutter
+highlight SignColumn ctermbg=None
 
 hi Normal guibg=NONE ctermbg=None
 " }}}
