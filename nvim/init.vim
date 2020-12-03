@@ -34,12 +34,6 @@ Plug 'kien/rainbow_parentheses.vim'   " Rainbow parenthesis!
 Plug 'ryanoasis/vim-devicons'         " Adds nice looking devicons to plugins
 Plug 'ehamberg/vim-cute-python'       " Concelamnet in Python
 
-" TODO:
-" Track the engine.
-Plug 'SirVer/ultisnips'
-" Snippets are separated from the engine. Add this if you want them:
-Plug 'honza/vim-snippets'
-
 " Miscelaneous
 Plug 'janko/vim-test'                         " Utilities to run tests
 Plug 'vim-scripts/IndexedSearch'              " Shows number of matches for search commands
@@ -67,7 +61,6 @@ Plug 'vimwiki/vimwiki'    " The one and only
 " Language specific
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'OmniSharp/omnisharp-vim'
-" Plug 'vim-latex/vim-latex', {'for' : 'tex'}             " For writing latex in vim
 Plug 'lervag/vimtex'                                    " For writting latex in vim (used by coc)
 Plug 'gabrielelana/vim-markdown', {'for' : 'wiki'}      " Markdown folding, code syntax highlighter
 Plug 'python-rope/ropevim'                              " Refactoring library for python
@@ -401,23 +394,6 @@ let g:airline_theme='simple'
 let g:airline#extensions#tabline#enabled = 1
 "let g:airline_powerline_fonts= 1
 " }}}
-" PLUGIN: vim-latex {{{
-let g:tex_flavor='latex' " To tell vim-latex that we are dealing with LaTeX files
-set conceallevel=1
-let g:tex_conceal='mgs' " Check :help g:tex_conceal
-
-" TIP: if you write your \label's as \label{fig:something}, then if you
-" " type in \ref{fig: and press you will automatically cycle through
-" " all the figure labels. Very useful!
-set iskeyword+=:
-
-" '\\ref\{'
-" '\v(\\ref\{(\w+))@<=}'
-
-" In order to compile latex file using ./compile script
-nnoremap <leader><c-c> :silent !./compile.sh<CR>
-
-" }}}
 " PLUGIN: Goyo {{{
 " Open Goyo (focus) on the current buffer
 nnoremap <leader>gg :Goyo<CR>
@@ -427,14 +403,6 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 function! s:goyo_leave()
     highlight Visual cterm=bold
 endfunction
-" }}}
-" PLUGIN: Limelight {{{
-let g:limelight_conceal_ctermfg = 'DarkGray'
-let g:limelight_conceal_guifg = 'DarkGray'
-let g:limelight_conceal_guifg = '#777777'
-
-" Toggle limelight
-nnoremap <C-l><C-l> :Limelight!!<CR>
 " }}}
 " PLUGIN: Vista {{{
 nnoremap <leader>vt :Vista coc<cr>G
