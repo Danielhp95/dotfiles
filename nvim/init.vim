@@ -201,6 +201,7 @@ autocmd FileType go nmap <leader>r  <Plug>(go-run)
 " https://www.reddit.com/r/vim/comments/21f4gm/best_workflow_when_using_fugitive/
 " set diffopt+=vertical
 nnoremap <leader>ga :Git add %:p<CR><CR>
+nnoremap <leader><leader>gs :Gtabedit :<CR>
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gc :Gcommit -v -q<CR>
 " nnoremap <leader>gt :Gcommit -v -q %:p<CR>
@@ -449,6 +450,9 @@ let g:vimwiki_list = [{'path': '~/vimwiki/',
 " }}}
 " MISCELANEOUS {{{
 set t_Co=256 " terminal with 256 colours
+
+" see :help conceallevel
+set conceallevel=2
 
 " To nicely format paragraphs in latex
 if filereadable(expand("~/.config/nvim/FormatParagraph.vim"))

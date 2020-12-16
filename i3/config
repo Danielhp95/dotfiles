@@ -207,6 +207,7 @@ assign [class="Firefox"] $browser
 assign [class="Spotify"] $music
 assign [class="Deluge"] $ws6
 assign [class="TelegramDesktop"] $ws9
+assign [class="Signal"] $ws9
 
 # Open specific applications in floating mode
 for_window [class="GLava"] floating enable border pixel 0
