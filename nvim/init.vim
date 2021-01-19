@@ -246,7 +246,7 @@ let NERDTreeMinimalUI = 1
 let g:webdevicons_conceal_nerdtree_brackets = 1
 let g:webdevicons_enable_nerdtree = 1
 " }}}
-" PLUGIN: COC {{{
+" PLUGIN: coc {{{
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 xnoremap <leader>cc :CocAction<CR>

@@ -53,6 +53,7 @@ bindsym $mod+t exec --no-startup-id "rofi -show window -kb-row-down 'Down,Alt+Ta
 bindsym $mod+Shift+o exec --no-startup-id "rofi -show file-browser"
 bindsym $mod+Shift+x exec --no-startup-id "bash ~/.config/i3/scripts/choose_screenlayout.sh"
 bindsym $mod+Shift+d exec --no-startup-id "bash ~/.config/i3/scripts/choose_bluetooth_device_from_paired.sh"
+bindsym $mod+Shift+p exec --no-startup-id "bash ~/.config/rofi/scripts/open_paper.sh"
 
 
 ################################################################################################
@@ -208,6 +209,7 @@ assign [class="Spotify"] $music
 assign [class="Deluge"] $ws6
 assign [class="TelegramDesktop"] $ws9
 assign [class="Signal"] $ws9
+assign [class="Slack"] $ws9
 
 # Open specific applications in floating mode
 for_window [class="GLava"] floating enable border pixel 0
