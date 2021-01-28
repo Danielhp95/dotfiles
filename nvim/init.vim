@@ -470,6 +470,8 @@ highlight Visual ctermbg=237 cterm=bold
 " Set the font of the matching searched terms to *bold*
 highlight Search cterm=bold
 highlight IncSearch cterm=bold ctermbg=230
+" Remove hideous background colour from concealed text
+highlight Conceal ctermbg=none
 " Pmenu relates to floating windows
 highlight Pmenu               ctermfg=15    ctermbg=0
 highlight PmenuThumb          ctermbg=7
