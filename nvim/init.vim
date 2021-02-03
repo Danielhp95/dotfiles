@@ -393,7 +393,7 @@ let g:airline_theme='simple'
 
 " Enables vim-airline for tabs
 let g:airline#extensions#tabline#enabled = 1
-"let g:airline_powerline_fonts= 1
+let g:airline_powerline_fonts= 1
 " }}}
 " PLUGIN: Goyo {{{
 " Open Goyo (focus) on the current buffer
@@ -453,6 +453,9 @@ set t_Co=256 " terminal with 256 colours
 
 " see :help conceallevel
 set conceallevel=2
+
+" Automatically write file on many common operations
+set autowrite
 
 " To nicely format paragraphs in latex
 if filereadable(expand("~/.config/nvim/FormatParagraph.vim"))
