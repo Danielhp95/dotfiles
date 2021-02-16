@@ -40,7 +40,7 @@ ln -sf ~/dotfiles/polybar ~/.config/
 
 ln -sf ~/dotfiles/compton/compton.conf ~/.config/compton.conf
 
-ln -sf ~/dotfiles/starship/starship.toml ~/config/starship.toml
+ln -sf ~/dotfiles/starship/starship.toml ~/.config/starship.toml
 
 ln -sf ~/dotfiles/zsh/zshrc ~/.zshrc
 ln -sf ~/dotfiles/zsh/fzf.zsh ~/.fzf.zsh
