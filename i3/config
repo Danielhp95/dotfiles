@@ -51,7 +51,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec --no-startup-id "rofi -show drun -modi drun,run"
 bindsym $mod+t exec --no-startup-id "rofi -show window -kb-row-down 'Down,Alt+Tab' -kb-accept-entry 'Return,!Alt_L,!Alt+Tab'"
 bindsym $mod+Shift+o exec --no-startup-id "rofi -show file-browser"
-bindsym $mod+Shift+x exec --no-startup-id "bash ~/.config/i3/scripts/choose_screenlayout.sh"
+bindsym $mod+Shift+x exec --no-startup-id "bash ~/.config/rofi/scripts/choose_screenlayout.sh"
 bindsym $mod+Shift+d exec --no-startup-id "bash ~/.config/rofi/scripts/choose_bluetooth_device_from_paired.sh"
 bindsym $mod+Shift+p exec --no-startup-id "bash ~/.config/rofi/scripts/open_paper.sh"
 bindsym $mod+Shift+v exec --no-startup-id "bash ~/.config/rofi/scripts/choose_mullvad_vpn.sh"
@@ -391,6 +391,7 @@ bar {
 
 # hide/unhide i3status bar
 bindsym $mod+m bar mode toggle
+#bindsym $mod+m exec --no-startup-id "polybar-msg cmd toggle"
 
 # Theme colors
 # class                   border  backgr. text    indic.   child_border

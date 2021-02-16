@@ -25,6 +25,9 @@ fi
 if [ -d ~/.config/nvim ]; then
   rm -rf ~/.config/nvim
 fi
+if [ -d ~/.config/polybar ]; then
+  rm -rf ~/.config/polybar
+fi
 
 ln -sf ~/dotfiles/zathura ~/.config/
 ln -sf ~/dotfiles/kitty ~/.config/
@@ -33,8 +36,11 @@ ln -sf ~/dotfiles/dunst ~/.config/
 ln -sf ~/dotfiles/tmux ~/.config/
 ln -sf ~/dotfiles/i3 ~/.config/
 ln -sf ~/dotfiles/nvim ~/.config/
+ln -sf ~/dotfiles/polybar ~/.config/
 
 ln -sf ~/dotfiles/compton/compton.conf ~/.config/compton.conf
+
+ln -sf ~/dotfiles/starship/starship.toml ~/config/starship.toml
 
 ln -sf ~/dotfiles/zsh/zshrc ~/.zshrc
 ln -sf ~/dotfiles/zsh/fzf.zsh ~/.fzf.zsh

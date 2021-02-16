@@ -50,6 +50,9 @@ plugins=(
 
 ZSH=~/.oh-my-zsh
 
+eval "$(starship init zsh)"
 source $ZSH/oh-my-zsh.sh
+# Set up amoizing starship prompt
+source ~/.fzf/shell/key-bindings.zsh
 source ~/dotfiles/zsh/aliases
 source ~/dotfiles/fzf/fzf.zsh
