@@ -203,7 +203,7 @@ autocmd FileType go nmap <leader>r  <Plug>(go-run)
 nnoremap <leader>ga :Git add %:p<CR><CR>
 nnoremap <leader><leader>gs :Gtabedit :<CR>
 nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gc :Gcommit -v -q<CR>
+nnoremap <leader>gc :Git commit<CR>
 " nnoremap <leader>gt :Gcommit -v -q %:p<CR>
 
 nnoremap <leader>gd :Gdiff<CR>
@@ -443,7 +443,7 @@ nnoremap t<c-n> :TestNearest<cr>
 " {{{ PLUGIN: vimwiki
 
 nnoremap <c-w><c-w> :VimwikiTabIndex<cr>
-noremap <leader><leader>p :!pandoc -t beamer ~/vimwiki/presentations/header % --from=markdown --output=%.pdf
+noremap <leader><leader>p :!pandoc -t beamer ~/dotfiles/nvim/pandoc_header % --from=markdown --output=%.pdf
 
 let g:vimwiki_list = [{'path': '~/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.wiki'}]

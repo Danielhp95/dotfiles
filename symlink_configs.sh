@@ -34,6 +34,7 @@ ln -sf ~/dotfiles/kitty ~/.config/
 ln -sf ~/dotfiles/rofi ~/.config/
 ln -sf ~/dotfiles/dunst ~/.config/
 ln -sf ~/dotfiles/tmux ~/.config/
+ln -sf ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
 ln -sf ~/dotfiles/i3 ~/.config/
 ln -sf ~/dotfiles/nvim ~/.config/
 ln -sf ~/dotfiles/polybar ~/.config/

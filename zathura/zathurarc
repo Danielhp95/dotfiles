@@ -33,3 +33,6 @@ set recolor-darkcolor           "#ded8d0"
 
 set recolor                     "false"
 set recolor-keephue             "false"
+# Look into 
+# https://www.mankier.com/5/zathurarc
+map [normal] p toggle_presentation

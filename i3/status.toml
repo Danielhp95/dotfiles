@@ -43,8 +43,3 @@ interval = 1
 block = "time"
 interval = 60
 format = "%a %d/%m %R"
-
-[[block]]
-block = "battery"
-driver = "upower"
-format = "{percentage}% {time}"

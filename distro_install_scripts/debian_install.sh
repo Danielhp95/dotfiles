@@ -6,20 +6,6 @@ function head_install_mpv() {
     sudo apt install mpv
 }
 
-function head_install_spotify() {
-    # 1. Add the Spotify repository signing keys to be able to verify downloaded packages
-    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0DF731E45CE24F27EEEB1450EFDC8610341D9410
-
-    # 2. Add the Spotify repository
-    echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
-
-    # 3. Update list of available packages
-    sudo apt-get update
-
-    # 4. Install Spotify
-    sudo apt-get install spotify-client
-}
-
 function install_pip() {
     sudo apt-get install python-pip
     sudo apt-get install python3-pip
@@ -83,23 +69,13 @@ function install_zathura() {
 
 function install_vim() {
     sudo apt-get install vim
-    install_vundle
-    install_you_complete_me
+    sudo apt-get install neovim
     install_ctags
-}
-
-# Remember that it is necessary to change .vimrc
-function install_vundle() {
-    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-}
-
-# The --all flag will probably fail due to dependencies. Fix as appropiate
-function install_you_complete_me() {
-    sudo apt-get install build-essential cmake
-    sudo apt-get install python-dev python3-dev
-    cd ~/.vim/bundle/YouCompleteMe
-    ./install.py --all
-    cd -
+    # For coc-vim
+    sudo-apt get install npm
+    sudo npm install -g node
+    sudo npm install -g neovim
+    pip3 install pynvim --upgrade
 }
 
 function install_fzf() {
@@ -180,9 +156,13 @@ function install_tmux() {
 }
 
 function install_git() {
-	sudo apt-get install git
+    sudo apt-get install git
     # Sets a global gitignore
     git config --global core.excludesfile '~/.gitignore'
+}
+
+function install_curl() {
+    sudo apt install curl
 }
 
 function copy_latest_configs() {
@@ -193,20 +173,51 @@ function copy_latest_configs() {
     rm -rf configs/
 }
 
-
-function install_flux() {
-    sudo add-apt-repository ppa:nathan-renniewaldock/flux
-    sudo apt-get update
-    sudo apt-get install fluxgui
-}
-
 function install_pandoc() {
     sudo apt-get install pandoc
     sudo apt-get install pandoc-citeproc
 }
 
+function install_starship() {
+    curl -fsSL https://starship.rs/install.sh | bash 
+}
+
+function install most() {
+    # Used to have colored man pages
+    sudo apt install most
+}
+
+function install_fd() {
+    sudo apt install fd-find
+    # Turns out that 'fd' clashes with some random debian command
+    ln -s $(which fdfind) ~/.local/bin/fd
+}
+
+# Instructions taken from the wiki
+# https://github.com/Airblader/i3/wiki/Building-from-source
+# Required to build from source
+function install_i3() {
+    sudo apt-get install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev \
+libxcb-util0-dev libxcb-icccm4-dev libyajl-dev \
+libstartup-notification0-dev libxcb-randr0-dev \
+libev-dev libxcb-cursor-dev libxcb-xinerama0-dev \
+libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev \
+autoconf libxcb-xrm0 libxcb-xrm-dev automake libxcb-shape0-dev libdbus-1-dev
+}
+
+function install_rofi() {
+    sudo apt-get install suckless-tools
+    sudo apt-get install rofi
+}
+
+function install_pavucontrol() {
+    sudo apt-get install bluez
+    sudo apt-get install pavucontrol
+}
+
 function install_all() {
     install_git
+    install_curl
 
     # Programming language tools
     install_pipenv
@@ -224,13 +235,12 @@ function install_all() {
     # Media programs
     head_install_telegram
     head_install_mpv
-    head_install_spotify
-
 
     # Shell tools
     install_openssh_server
     install_mosh
     install_fzf
+    install_fd
     install_xclip
     install_silver_searcher
     install_unzip
@@ -238,9 +248,12 @@ function install_all() {
     install_tmux
     install_powerline
     install_tree
+    install_rofi
+    install_starship
+    install_most
 
-    # Health
-    install_flux
+    # Audio
+    install_pavucontrol
 
     # All hail
     install_vim
